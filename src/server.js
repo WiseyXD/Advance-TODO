@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const PORT = 4000;
@@ -20,9 +21,10 @@ async function readAllTodos()
 function createNewTodo(title , description , completed)
 {   
     const newTodo = new Todo({
+        id : uuidv4(),
         title,
         description,
-        completed
+        completed,
     });
     newTodo.save();
 }
@@ -74,8 +76,16 @@ app.put("/",async (req,res)=>{
     })
 })
 
-// Delete todo by title  
-app.delete("/",async(req,res)=>{
+// Delete todo by id 
+app.delete("/id",async(req,res)=>{
+    await Todo.deleteOne({id : req.body.id});
+    res.status(200).json({
+        msg : "DELETE Success"
+    })
+})
+
+// Delete todo by title 
+app.delete("/title",async(req,res)=>{
     await Todo.deleteOne({title : req.body.title});
     res.status(200).json({
         msg : "DELETE Success"

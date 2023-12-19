@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const {Schema , model} = mongoose;
 const todoSchema = new Schema ({
+    id : {
+        type : String,
+        required : true,
+    },
     title : {
         type : String,
         required : true,
