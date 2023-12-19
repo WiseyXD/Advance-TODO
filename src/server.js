@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const PORT = 4000;
 
-const Todo = require("./models/todo");
 const {readAllTodos , createNewTodo , updateTodo ,deleteTodoById , deleteTodoByTitle} = require("./utils/CRUDhelper")
+const {createUser} = require("./utils/DBaccess");
 
 mongoose.connect(
     "mongodb+srv://WiseyXD:Qwerty88**@testcluster.hbkxnkx.mongodb.net/userapp"
@@ -14,15 +14,26 @@ mongoose.connect(
 
 app.use(express.json());
 
+// signup
+app.post("/",(req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+    createUser(email,password);
+    res.status(201).json({
+        msg : "User Created"
+    })
+})
+
+
 // read all todos
-app.get("/",async (req,res)=>{
+app.get("/todos",async (req,res)=>{
     const todos = await readAllTodos();
     res.status(200).json({todos});
 })
 
 
 // Create new Todo
-app.post("/", (req, res) => {
+app.post("/todos", (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
     const completed = req.body.completed;
@@ -34,7 +45,7 @@ app.post("/", (req, res) => {
 
 
 // Update todo by title
-app.put("/",(req,res)=>{
+app.put("/todos",(req,res)=>{
     updateTodo(req.body.title,req.body.completed);
     res.status(200).json({
         msg : "UPDATE Done"
@@ -43,7 +54,7 @@ app.put("/",(req,res)=>{
 
 
 // Delete todo by id 
-app.delete("/id",async(req,res)=>{
+app.delete("/todos/id",async(req,res)=>{
     deleteTodoById(req.body.id);
     res.status(200).json({
         msg : "DELETE Success"
@@ -52,7 +63,7 @@ app.delete("/id",async(req,res)=>{
 
 
 // Delete todo by title 
-app.delete("/title",(req,res)=>{
+app.delete("/todos/title",(req,res)=>{
     deleteTodoByTitle(req.body.title)
     res.status(200).json({
         msg : "DELETE Success"
