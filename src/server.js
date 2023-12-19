@@ -1,48 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const PORT = 4000;
 
 const Todo = require("./models/todo");
+const {readAllTodos , createNewTodo , updateTodo ,deleteTodoById , deleteTodoByTitle} = require("./utils/CRUDhelper")
 
 mongoose.connect(
     "mongodb+srv://WiseyXD:Qwerty88**@testcluster.hbkxnkx.mongodb.net/userapp"
 );
-
-async function readAllTodos()
-{
-    const data = await Todo.find({});
-    return data;
-}
-
-function createNewTodo(title , description , completed)
-{   
-    const newTodo = new Todo({
-        id : uuidv4(),
-        title,
-        description,
-        completed,
-    });
-    newTodo.save();
-}
-
-async function searchById(title)
-{
-    const selectedTodo = await Todo.find({title : title});
-}
-
-async function deleteTodo(title)
-{
-    await Todo.deleteOne({title : title})
-}
-
-
-
-
-
 
 app.use(express.json());
 
@@ -64,29 +32,28 @@ app.post("/", (req, res) => {
     });
 });
 
+
 // Update todo by title
-app.put("/",async (req,res)=>{
-    await Todo.updateOne({title : req.body.title},{
-        $set :{
-            completed : req.body.completed,
-        }
-    })
+app.put("/",(req,res)=>{
+    updateTodo(req.body.title,req.body.completed);
     res.status(200).json({
         msg : "UPDATE Done"
     })
 })
 
+
 // Delete todo by id 
 app.delete("/id",async(req,res)=>{
-    await Todo.deleteOne({id : req.body.id});
+    deleteTodoById(req.body.id);
     res.status(200).json({
         msg : "DELETE Success"
     })
 })
 
+
 // Delete todo by title 
-app.delete("/title",async(req,res)=>{
-    await Todo.deleteOne({title : req.body.title});
+app.delete("/title",(req,res)=>{
+    deleteTodoByTitle(req.body.title)
     res.status(200).json({
         msg : "DELETE Success"
     })
