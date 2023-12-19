@@ -6,7 +6,7 @@ const app = express();
 const PORT = 4000;
 
 const {readAllTodos , createNewTodo , updateTodo ,deleteTodoById , deleteTodoByTitle} = require("./utils/CRUDhelper")
-const {createUser} = require("./utils/DBaccess");
+const {createUser,checkUserInDB} = require("./utils/DBaccess");
 
 mongoose.connect(
     "mongodb+srv://WiseyXD:Qwerty88**@testcluster.hbkxnkx.mongodb.net/userapp"
@@ -15,12 +15,35 @@ mongoose.connect(
 app.use(express.json());
 
 // signup
-app.post("/",(req,res)=>{
+app.post("/signup",async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
-    createUser(email,password);
+    const existsInDB = await createUser(email,password);
+    if(!existsInDB)
+    {
+        res.status(401).json({
+            msg : "User is already present in our DB",
+        })
+        return;
+    }
     res.status(201).json({
-        msg : "User Created"
+        msg : "User Created",
+    })
+})
+
+app.post("/login",async (req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+    const existsInDB = await checkUserInDB(email,password);
+    if(!existsInDB)
+    {
+        res.status(400).json({
+            msg : "Account not found in our Database"
+        })
+        return;
+    }
+    res.status(200).json({
+        msg : "Account found in our Database"
     })
 })
 
