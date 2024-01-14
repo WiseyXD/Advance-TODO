@@ -6,25 +6,25 @@ async function readAllTodos() {
     return data;
 }
 
-function createNewTodo(title, description, completed) {
+function createNewTodo(title, description, completed, resources) {
     const newTodo = new Todo({
         id: uuidv4(),
         title,
         description,
         completed,
+        resources,
     });
     newTodo.save();
 }
 
-async function updateTodo(title,completed) {
-    await Todo.updateOne(
-        { title : title},
-        {
-            $set: {
-                completed : completed,
-            },
-        }
-    );
+async function updateTodo(id) {
+    const existingTodo = await Todo.findById(id);
+    if (!existingTodo) {
+        return null;
+    }
+    existingTodo.completed = !existingTodo.completed;
+    await existingTodo.save();
+    return existingTodo;
 }
 
 async function deleteTodoByTitle(title) {
@@ -36,5 +36,9 @@ async function deleteTodoById(id) {
 }
 
 module.exports = {
-    readAllTodos , createNewTodo , updateTodo ,deleteTodoById , deleteTodoByTitle
-}
+    readAllTodos,
+    createNewTodo,
+    updateTodo,
+    deleteTodoById,
+    deleteTodoByTitle,
+};
