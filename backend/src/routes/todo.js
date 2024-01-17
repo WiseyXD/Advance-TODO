@@ -16,7 +16,7 @@ router.use(authenticateToken);
 router.get("/", async (req, res) => {
     const email = req.email;
     console.log(email);
-    const todos = await readAllTodos();
+    const todos = await readAllTodos({ email });
     res.status(200).json({ todos });
 });
 
@@ -25,7 +25,8 @@ router.post("/create", (req, res) => {
     const description = req.body.description;
     const completed = req.body.completed;
     const resources = req.body.resources;
-    createNewTodo(title, description, completed, resources);
+    const email = req.email;
+    createNewTodo(email, title, description, completed, resources);
     res.status(201).json({
         msg: "Created a Todo",
     });
@@ -69,6 +70,7 @@ router.put("/update/:id", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 router.delete("/delete/:id", authenticateToken, async (req, res) => {
     deleteTodoById(req.params.id);
     res.status(200).json({

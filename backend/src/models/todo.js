@@ -13,6 +13,10 @@ const resourceSchema = new Schema({
 });
 
 const todoSchema = new Schema({
+    email: {
+        type: String,
+        required: true,
+    },
     id: {
         type: String,
         required: true,

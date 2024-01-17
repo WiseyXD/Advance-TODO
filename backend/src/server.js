@@ -7,9 +7,6 @@ const PORT = 4000;
 const userRoutes = require("./routes/user");
 const todoRoutes = require("./routes/todo");
 
-// Null Day
-// Null Day
-
 mongoose
     .connect(
         "mongodb+srv://WiseyXD:Qwerty88**@testcluster.hbkxnkx.mongodb.net/userapp"
