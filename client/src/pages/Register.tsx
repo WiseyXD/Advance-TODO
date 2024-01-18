@@ -17,7 +17,7 @@ export default function Register() {
         e.preventDefault();
     }
     return (
-        <Card className="mx-auto max-w-[70%]">
+        <Card className="mx-auto md:max-w-lg">
             <CardHeader>
                 <CardTitle>Signup</CardTitle>
                 <CardDescription>Basic Signup Page</CardDescription>

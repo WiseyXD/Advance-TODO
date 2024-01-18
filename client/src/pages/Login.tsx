@@ -17,7 +17,7 @@ export default function Login() {
         e.preventDefault();
     }
     return (
-        <Card className="mx-auto max-w-[70%]">
+        <Card className="mx-auto md:max-w-lg">
             <CardHeader>
                 <CardTitle>Login</CardTitle>
                 <CardDescription>Basic Login Page</CardDescription>
