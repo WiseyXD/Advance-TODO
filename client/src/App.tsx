@@ -3,17 +3,28 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import { useSelector } from "react-redux";
 
 function App() {
-    const isAuthorized = false;
+    const isAuthorized = useSelector((state) => state.root.auth.token);
 
     return (
         <>
             <Navbar isAuthorized={isAuthorized} />
             <div className="w-full max-w-[90%] mx-auto mt-4">
                 <Routes>
-                    <Route path="/signup" element={<Register />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route
+                        path="/signup"
+                        element={
+                            !isAuthorized ? <Register /> : <Navigate to={"/"} />
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            !isAuthorized ? <Login /> : <Navigate to={"/"} />
+                        }
+                    />
                     <Route
                         path="/"
                         element={

@@ -10,11 +10,36 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useDispatch } from "react-redux";
+import { useSignupMutation } from "@/app/api/authApi";
+import { setAuth } from "@/app/Slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+    const [signupMutattion] = useSignupMutation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [rePassword, setRePassword] = useState("");
+
     const [isLoading, setIsLoading] = useState(false);
-    function handleSubmit(e: React.SyntheticEvent) {
+
+    async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
+        if (!(password == rePassword)) {
+            alert("Password didnt match");
+            return;
+        }
+        const { data } = await signupMutattion({ email, password });
+        if (!data) {
+            alert("User Already Exists please login");
+            return;
+        }
+        setEmail("");
+        setPassword("");
+        setRePassword("");
+        navigate("/login");
     }
     return (
         <Card className="mx-auto md:max-w-lg">
@@ -34,6 +59,8 @@ export default function Register() {
                             autoComplete="email"
                             autoCorrect="off"
                             disabled={isLoading}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -45,6 +72,8 @@ export default function Register() {
                             autoCapitalize="none"
                             autoComplete="password"
                             autoCorrect="off"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             disabled={isLoading}
                         />
                     </div>
@@ -57,13 +86,15 @@ export default function Register() {
                             autoCapitalize="none"
                             autoComplete="password"
                             autoCorrect="off"
+                            value={rePassword}
+                            onChange={(e) => setRePassword(e.target.value)}
                             disabled={isLoading}
                         />
                     </div>
                 </form>
             </CardContent>
             <CardFooter>
-                <Button>Submit</Button>
+                <Button onClick={handleSubmit}>Submit</Button>
             </CardFooter>
         </Card>
     );
