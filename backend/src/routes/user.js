@@ -22,7 +22,7 @@ router.post("/signup", async (req, res) => {
     });
 });
 
-router.get("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const existsInDB = await checkUserInDB(email, password);
@@ -33,8 +33,9 @@ router.get("/login", async (req, res) => {
         return;
     }
     const token = await JWTtoken(email);
+    req.email = email;
     res.status(200).json({
-        msg: "Account found in our Database",
+        email,
         token,
     });
 });

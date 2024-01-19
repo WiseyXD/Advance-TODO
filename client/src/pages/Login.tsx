@@ -10,12 +10,31 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useLoginMutation } from "@/app/api/authApi";
+import { useDispatch } from "react-redux";
+import { setAuth } from "@/app/Slices/authSlice";
 
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    function handleSubmit(e: React.SyntheticEvent) {
+    const [loginMutation] = useLoginMutation();
+    const dispatch = useDispatch();
+
+    async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
+        const { data } = await loginMutation({
+            email,
+            password,
+        });
+        if (!data) {
+            alert("Invalid Credentials");
+        }
+        dispatch(setAuth(data));
+        setEmail("");
+        setPassword("");
     }
+
     return (
         <Card className="mx-auto md:max-w-lg">
             <CardHeader>
@@ -34,6 +53,8 @@ export default function Login() {
                             autoComplete="email"
                             autoCorrect="off"
                             disabled={isLoading}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -46,12 +67,14 @@ export default function Login() {
                             autoComplete="password"
                             autoCorrect="off"
                             disabled={isLoading}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                 </form>
             </CardContent>
             <CardFooter>
-                <Button>Submit</Button>
+                <Button onClick={handleSubmit}>Login</Button>
             </CardFooter>
         </Card>
     );

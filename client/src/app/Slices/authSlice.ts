@@ -7,11 +7,13 @@ export interface PayloadType {
 }
 
 export interface AuthState {
-    auth: null | PayloadType;
+    email: null | string;
+    token: null | string;
 }
 
 const initialState: AuthState = {
-    auth: null,
+    token: null,
+    email: null,
 };
 
 export const authSlice = createSlice({
@@ -19,10 +21,12 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setAuth: (state, action: PayloadAction<PayloadType>) => {
-            state.auth = action.payload;
+            state.token = action.payload.token;
+            state.email = action.payload.email;
         },
         unsetAuth: (state) => {
-            state.auth = null;
+            state.token = null;
+            state.email = null;
         },
     },
 });
