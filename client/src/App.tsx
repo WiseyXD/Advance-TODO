@@ -4,9 +4,12 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import { useSelector } from "react-redux";
+import { RootState } from "./app/store";
 
 function App() {
-    const isAuthorized = useSelector((state) => state.root.auth.token);
+    const isAuthorized = useSelector(
+        (state: RootState) => state.root.auth.token
+    );
 
     return (
         <>
