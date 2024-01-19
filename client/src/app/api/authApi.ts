@@ -1,13 +1,20 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+interface Credentials {
+    // Define the structure of your credentials object
+    // Adjust the properties according to your actual needs
+    email: string;
+    password: string;
+}
+
 export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: import.meta.env.VITE_BASE_AUTH,
+        baseUrl: import.meta.env.VITE_BASE_AUTH as string, // Assuming VITE_BASE_AUTH is a string
     }),
     endpoints: (builder) => ({
         signup: builder.mutation({
-            query: (credentials) => ({
+            query: (credentials: Credentials) => ({
                 url: "signup",
                 method: "POST",
                 headers: {
@@ -17,7 +24,7 @@ export const authApi = createApi({
             }),
         }),
         login: builder.mutation({
-            query: (credentials) => ({
+            query: (credentials: Credentials) => ({
                 url: "login",
                 method: "POST",
                 headers: {
