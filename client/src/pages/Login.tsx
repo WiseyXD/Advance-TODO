@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { useLoginMutation } from "@/app/api/authApi";
 import { useDispatch } from "react-redux";
 import { setAuth } from "@/app/Slices/authSlice";
@@ -32,6 +33,7 @@ export default function Login() {
             password: "",
         },
     });
+    const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
     const [loginMutation] = useLoginMutation();
     const dispatch = useDispatch();
@@ -42,76 +44,85 @@ export default function Login() {
             email,
             password,
         });
+        console.log(data);
         if (!data) {
-            alert("Invalid Credentials");
+            toast({
+                variant: "destructive",
+                title: "Login Failed",
+                description: "Invalid Credentials",
+            });
+            return;
         }
         console.log(data);
+        form.reset();
         dispatch(setAuth(data));
     }
 
     return (
-        <Form {...form}>
-            <div className="lg:max-w-md sm:w-420 flex-center flex-col">
-                <img src="/assets/images/logo.svg" alt="" />
+        <div className="min-h-[80vh] flex justify-center items-center">
+            <Form {...form}>
+                <div className="lg:max-w-md sm:w-420 flex-center flex-col">
+                    <img src="/assets/images/logo.svg" alt="" />
 
-                <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-                    Login to your account
-                </h2>
-                <p className="text-light-3 small-medium md:base-regular mt-2">
-                    To use MasterNotes please login
-                </p>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="flex flex-col gap-5 w-full mt-4"
-                >
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="email"
-                                        className="shad-input"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="password"
-                                        className="shad-input"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button type="submit" className="shad-button_primary">
-                        Login
-                    </Button>
-                    <p className="text-small text-light-2 text-center">
-                        New to MasterNotes?
-                        <Link
-                            to="/signup"
-                            className="text-primary-500 text-small-semibold ml-1 hover:underline"
-                        >
-                            Signup
-                        </Link>
+                    <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
+                        Login to your account
+                    </h2>
+                    <p className="text-light-3 small-medium md:base-regular mt-2">
+                        To use MasterNotes please login
                     </p>
-                </form>
-            </div>
-        </Form>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="flex flex-col gap-5 w-full mt-4"
+                    >
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="email"
+                                            className="shad-input"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="password"
+                                            className="shad-input"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button type="submit" className="shad-button_primary">
+                            Login
+                        </Button>
+                        <p className="text-small text-light-2 text-center">
+                            New to MasterNotes?
+                            <Link
+                                to="/signup"
+                                className="text-primary-500 text-small-semibold ml-1 hover:underline"
+                            >
+                                Signup
+                            </Link>
+                        </p>
+                    </form>
+                </div>
+            </Form>
+        </div>
     );
 }

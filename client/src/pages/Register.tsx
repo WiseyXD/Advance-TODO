@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { useDispatch } from "react-redux";
 import { useSignupMutation } from "@/app/api/authApi";
 import { Link, useNavigate } from "react-router-dom";
@@ -37,6 +38,7 @@ export default function Register() {
     const [signupMutation] = useSignupMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
 
     async function onSubmit(values: z.infer<typeof registerSchema>) {
@@ -47,93 +49,100 @@ export default function Register() {
         const { email, password } = values;
         const { data } = await signupMutation({ email, password });
         if (!data) {
-            alert("User Already Exists please login");
+            toast({
+                variant: "destructive",
+                title: "Registration Failed",
+                description: "UserAlready Exists",
+            });
             return;
         }
         console.log(data);
+        form.reset();
         navigate("/login");
     }
     return (
-        <Form {...form}>
-            <div className="lg:max-w-md sm:w-420 flex-center flex-col">
-                <img src="/assets/images/logo.svg" alt="" />
+        <div className="min-h-[80vh] flex justify-center items-center">
+            <Form {...form}>
+                <div className="sm:w-420 flex-center flex-col">
+                    <img src="/assets/images/logo.svg" alt="" />
 
-                <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-                    Create a new Account
-                </h2>
-                <p className="text-light-3 small-medium md:base-regular mt-2">
-                    To use MasterNotes please register
-                </p>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="flex flex-col gap-5 w-full mt-4"
-                >
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="email"
-                                        className="shad-input"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Confirm Password</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="password"
-                                        className="shad-input"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="rePassword"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="password"
-                                        className="shad-input"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <Button type="submit" className="shad-button_primary">
-                        Signup
-                    </Button>
-                    <p className="text-small text-light-2 text-center">
-                        Already Have an Account ?
-                        <Link
-                            to="/sign-in"
-                            className="text-primary-500 text-small-semibold ml-1 hover:underline"
-                        >
-                            Log In
-                        </Link>
+                    <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
+                        Create a new Account
+                    </h2>
+                    <p className="text-light-3 small-medium md:base-regular mt-2">
+                        To use MasterNotes please register
                     </p>
-                </form>
-            </div>
-        </Form>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="flex flex-col gap-5 w-full mt-4"
+                    >
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="email"
+                                            className="shad-input"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Confirm Password</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="password"
+                                            className="shad-input"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="rePassword"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="password"
+                                            className="shad-input"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <Button type="submit" className="shad-button_primary">
+                            Signup
+                        </Button>
+                        <p className="text-small text-light-2 text-center">
+                            Already Have an Account ?
+                            <Link
+                                to="/sign-in"
+                                className="text-primary-500 text-small-semibold ml-1 hover:underline"
+                            >
+                                Log In
+                            </Link>
+                        </p>
+                    </form>
+                </div>
+            </Form>
+        </div>
     );
 }
