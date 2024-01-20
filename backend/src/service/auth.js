@@ -27,15 +27,16 @@ async function createUser(email, password) {
 
 async function checkUserInDB(email, password) {
     let exists = false;
-
     const existingUser = await User.findOne({ email: email });
-
     if (existingUser) {
-        if (bcrypt.compare(password, existingUser.password)) {
+        const passwordMatches = await bcrypt.compare(
+            password,
+            existingUser.password
+        );
+        if (passwordMatches) {
             exists = true;
         }
     }
-
     return exists;
 }
 

@@ -1,13 +1,5 @@
 import { useState } from "react";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import {
     Form,
     FormControl,
     FormDescription,
@@ -47,7 +39,7 @@ export default function Register() {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof registerSchema>) {
         if (!(values.password == values.rePassword)) {
             alert("Password didnt match");
             return;
