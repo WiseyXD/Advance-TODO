@@ -3,14 +3,16 @@ import { persistStore } from "redux-persist";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import rootReducer from "./Slices/rootReducer";
 import { authApi } from "./api/authApi";
+import { todoApi } from "./api/todoApi";
 
 const store = configureStore({
     reducer: {
         root: rootReducer,
         [authApi.reducerPath]: authApi.reducer,
+        [todoApi.reducerPath]: todoApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(authApi.middleware),
+        getDefaultMiddleware().concat(authApi.middleware, todoApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
