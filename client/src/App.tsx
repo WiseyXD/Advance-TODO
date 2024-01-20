@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import { useSelector } from "react-redux";
 import { RootState } from "./app/store";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
     const isAuthorized = useSelector(
@@ -13,8 +14,9 @@ function App() {
 
     return (
         <>
+            <Toaster />
             <Navbar isAuthorized={isAuthorized} />
-            <div className="w-full max-w-[90%] mx-auto mt-4">
+            <div className="max-w-[90%] w-full mx-auto mt-4">
                 <Routes>
                     <Route
                         path="/signup"

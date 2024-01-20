@@ -1,101 +1,148 @@
 import { useState } from "react";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { useDispatch } from "react-redux";
 import { useSignupMutation } from "@/app/api/authApi";
-import { setAuth } from "@/app/Slices/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+const registerSchema = z.object({
+    email: z.string().email().min(10).max(50),
+    password: z.string().min(5),
+    rePassword: z.string().min(5),
+});
 
 export default function Register() {
-    const [signupMutattion] = useSignupMutation();
+    const form = useForm<z.infer<typeof registerSchema>>({
+        resolver: zodResolver(registerSchema),
+        defaultValues: {
+            email: "",
+            password: "",
+            rePassword: "",
+        },
+    });
+
+    const [signupMutation] = useSignupMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [rePassword, setRePassword] = useState("");
-
+    const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
 
-    async function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault();
-        if (!(password == rePassword)) {
+    async function onSubmit(values: z.infer<typeof registerSchema>) {
+        if (!(values.password == values.rePassword)) {
             alert("Password didnt match");
             return;
         }
-        const { data } = await signupMutattion({ email, password });
+        const { email, password } = values;
+        const { data } = await signupMutation({ email, password });
         if (!data) {
-            alert("User Already Exists please login");
+            toast({
+                variant: "destructive",
+                title: "Registration Failed",
+                description: "UserAlready Exists",
+            });
             return;
         }
-        setEmail("");
-        setPassword("");
-        setRePassword("");
+        console.log(data);
+        form.reset();
         navigate("/login");
     }
     return (
-        <Card className="mx-auto md:max-w-lg">
-            <CardHeader>
-                <CardTitle>Signup</CardTitle>
-                <CardDescription>Basic Signup Page</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <div className="flex flex-col gap-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                            id="email"
-                            placeholder="name@example.com"
-                            type="email"
-                            autoCapitalize="none"
-                            autoComplete="email"
-                            autoCorrect="off"
-                            disabled={isLoading}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+        <div className="min-h-[80vh] flex justify-center items-center">
+            <Form {...form}>
+                <div className="sm:w-420 flex-center flex-col">
+                    <img src="/assets/images/logo.svg" alt="" />
+
+                    <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
+                        Create a new Account
+                    </h2>
+                    <p className="text-light-3 small-medium md:base-regular mt-2">
+                        To use MasterNotes please register
+                    </p>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="flex flex-col gap-5 w-full mt-4"
+                    >
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="email"
+                                            className="shad-input"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <Label htmlFor="password">Password</Label>
-                        <Input
-                            id="password"
-                            placeholder="password"
-                            type="password"
-                            autoCapitalize="none"
-                            autoComplete="password"
-                            autoCorrect="off"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            disabled={isLoading}
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Confirm Password</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="password"
+                                            className="shad-input"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <Label htmlFor="password">Confirm Password</Label>
-                        <Input
-                            id="confirm-password"
-                            placeholder="confirm-password"
-                            type="password"
-                            autoCapitalize="none"
-                            autoComplete="password"
-                            autoCorrect="off"
-                            value={rePassword}
-                            onChange={(e) => setRePassword(e.target.value)}
-                            disabled={isLoading}
+                        <FormField
+                            control={form.control}
+                            name="rePassword"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="password"
+                                            className="shad-input"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                    </div>
-                </form>
-            </CardContent>
-            <CardFooter>
-                <Button onClick={handleSubmit}>Submit</Button>
-            </CardFooter>
-        </Card>
+
+                        <Button type="submit" className="shad-button_primary">
+                            Signup
+                        </Button>
+                        <p className="text-small text-light-2 text-center">
+                            Already Have an Account ?
+                            <Link
+                                to="/sign-in"
+                                className="text-primary-500 text-small-semibold ml-1 hover:underline"
+                            >
+                                Log In
+                            </Link>
+                        </p>
+                    </form>
+                </div>
+            </Form>
+        </div>
     );
 }
