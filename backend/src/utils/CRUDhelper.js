@@ -11,14 +11,13 @@ async function readAllTodos(email) {
     }
 }
 
-function createNewTodo(email, title, description, completed, resources) {
+function createNewTodo(email, title, description, completed, resource) {
     const newTodo = new Todo({
         email,
-        id: uuidv4(),
         title,
         description,
         completed,
-        resources,
+        resources: [resource],
     });
     newTodo.save();
 }

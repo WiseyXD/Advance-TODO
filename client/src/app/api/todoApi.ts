@@ -52,14 +52,11 @@ export const todoApi = createApi({
             invalidatesTags: ["Todos"],
         }),
         updateResourceTodo: builder.mutation({
-            query: ({ _id, resource }) => {
-                console.log(resource);
-                return {
-                    url: `resource/${_id}`,
-                    method: "POST",
-                    body: resource,
-                };
-            },
+            query: ({ _id, resource }) => ({
+                url: `resource/${_id}`,
+                method: "PUT",
+                body: resource,
+            }),
             invalidatesTags: ["Todos"],
         }),
         completedTodo: builder.mutation({

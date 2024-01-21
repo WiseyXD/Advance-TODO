@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Card,
     CardContent,
@@ -20,13 +20,49 @@ import { useToast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "@radix-ui/react-label";
+import { useCreateTodoMutation } from "@/app/api/todoApi";
 
 export default function NewTodoCard() {
+    const [newTodoData, setNewTodoData] = useState({
+        title: "",
+        description: "",
+    });
+    const [resourceData, setResourceData] = useState({
+        name: "",
+        link: "",
+    });
+    const [createMutation] = useCreateTodoMutation();
     const { toast } = useToast();
     function handleSubmit() {
-        toast({
-            title: "Added New Todo ",
-        });
+        try {
+            if (
+                newTodoData.title === "" ||
+                newTodoData.description === "" ||
+                resourceData.link === "" ||
+                resourceData.name === ""
+            ) {
+                toast({
+                    title: "Please fill all the fields",
+                    variant: "destructive",
+                });
+                return;
+            }
+            const newTodo = {
+                title: newTodoData.title,
+                description: newTodoData.description,
+                resource: resourceData,
+            };
+            const { data } = createMutation(newTodo);
+            toast({
+                title: "Added New Todo ",
+                description: newTodoData.title,
+            });
+        } catch (error) {
+            toast({
+                title: "Error Occured while creating a new Todo",
+                variant: "destructive",
+            });
+        }
     }
     return (
         <Card className="bg-gray-200 flex justify-center items-center">
@@ -43,20 +79,50 @@ export default function NewTodoCard() {
                             <Label htmlFor="Title" className="text-right">
                                 Title
                             </Label>
-                            <Input id="title" className="col-span-3" />
+                            <Input
+                                id="title"
+                                className="col-span-3"
+                                defaultValue={newTodoData.title}
+                                onChange={(e) => {
+                                    setNewTodoData((prevData) => ({
+                                        ...prevData,
+                                        title: e.target.value,
+                                    }));
+                                }}
+                            />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="description" className="text-right">
                                 Description
                             </Label>
-                            <Input id="description" className="col-span-3" />
+                            <Input
+                                id="description"
+                                className="col-span-3"
+                                defaultValue={newTodoData.description}
+                                onChange={(e) => {
+                                    setNewTodoData((prevData) => ({
+                                        ...prevData,
+                                        description: e.target.value,
+                                    }));
+                                }}
+                            />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="resource" className="text-right">
                                 Resource Name
                             </Label>
 
-                            <Input id="resource-name" className="col-span-3" />
+                            <Input
+                                id="resource-name"
+                                className="col-span-3"
+                                defaultValue={resourceData.name}
+                                onChange={(e) => {
+                                    setResourceData((prevData) => ({
+                                        ...prevData,
+                                        name: e.target.value,
+                                    }));
+                                }}
+                            />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label
@@ -66,7 +132,17 @@ export default function NewTodoCard() {
                                 Resource Link
                             </Label>
 
-                            <Input id="resource-link" className="col-span-3" />
+                            <Input
+                                id="resource-link"
+                                className="col-span-3"
+                                defaultValue={resourceData.link}
+                                onChange={(e) => {
+                                    setResourceData((prevData) => ({
+                                        ...prevData,
+                                        link: e.target.value,
+                                    }));
+                                }}
+                            />
                         </div>
                     </div>
                     <DialogFooter>

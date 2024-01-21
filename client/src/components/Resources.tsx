@@ -38,18 +38,22 @@ export default function Resources({ title, _id, resources }: TResourceProps) {
 
     const [resourceMutation] = useUpdateResourceTodoMutation();
     async function handleSubmit() {
-        if (resource.name === "" || resource.link === "") {
+        try {
+            if (resource.name === "" || resource.link === "") {
+                toast({
+                    title: "Please fill in all the fields",
+                    variant: "destructive",
+                });
+                return;
+            }
+            const { data } = await resourceMutation({ _id, resource });
+            console.log(data);
             toast({
-                title: "Please fill in all the fields",
-                variant: "destructive",
+                title: resource.name + "resource Added Successfully",
             });
-            return;
+        } catch (error) {
+            console.log(error);
         }
-        const { data } = await resourceMutation({ _id, resource });
-        console.log(data);
-        toast({
-            title: resource.name + "resource Added Successfully",
-        });
     }
 
     return (

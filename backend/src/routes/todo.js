@@ -23,12 +23,13 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/create", (req, res) => {
+    console.log(req.body);
     const title = req.body.title;
     const description = req.body.description;
-    const completed = req.body.completed;
-    const resources = req.body.resources;
+    const completed = false;
+    const resource = req.body.resource;
     const email = req.email;
-    createNewTodo(email, title, description, completed, resources);
+    createNewTodo(email, title, description, completed, resource);
     res.status(201).json({
         msg: "Created a Todo",
     });
