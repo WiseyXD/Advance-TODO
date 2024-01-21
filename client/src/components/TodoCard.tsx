@@ -87,17 +87,19 @@ export default function TodoCard({
                         <DialogHeader>
                             <DialogTitle>{title}</DialogTitle>
                             <DialogDescription>
-                                <ul className="flex flex-col">
-                                    {resources.map(({ name, link }) => {
-                                        return (
-                                            <ListItem
-                                                key={link}
-                                                name={name}
-                                                link={link}
-                                            />
-                                        );
-                                    })}
-                                </ul>
+                                {resources && (
+                                    <ul className="flex flex-col">
+                                        {resources.map(({ name, link }) => {
+                                            return (
+                                                <ListItem
+                                                    key={link}
+                                                    name={name}
+                                                    link={link}
+                                                />
+                                            );
+                                        })}
+                                    </ul>
+                                )}
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <Button variant="outline">
