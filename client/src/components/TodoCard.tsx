@@ -12,7 +12,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { TrashIcon } from "@radix-ui/react-icons";
-import { useCompletedTodoMutation } from "@/app/api/todoApi";
+import {
+    useCompletedTodoMutation,
+    useDeleteTodoMutation,
+} from "@/app/api/todoApi";
 import UpdateTodoSheet from "./UpdateTodoSheet";
 import Resources from "./Resources";
 
@@ -34,7 +37,9 @@ export default function TodoCard({
     const [isCompleted, setIsCompleted] = useState(completed);
     const { toast } = useToast();
     const [completedMutation] = useCompletedTodoMutation();
-    function handleDelete() {
+    const [deleteMutation] = useDeleteTodoMutation();
+    async function handleDelete() {
+        const { data } = await deleteMutation(_id);
         toast({
             title: "Todo Deleted",
         });

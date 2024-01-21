@@ -63,7 +63,7 @@ async function updateResource(id, resource) {
 }
 
 async function deleteTodoById(id) {
-    await Todo.deleteOne({ id: id });
+    await Todo.deleteOne({ _id: id });
 }
 
 module.exports = {
