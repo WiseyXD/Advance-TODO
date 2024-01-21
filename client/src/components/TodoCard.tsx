@@ -39,6 +39,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "./ui/use-toast";
 import { TrashIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import ListItem from "./ListItem";
+import { useCompletedTodoMutation } from "@/app/api/todoApi";
 
 export type TTodoCardProps = {
     description: string;
@@ -55,7 +56,9 @@ export default function TodoCard({
     _id,
     completed,
 }: TTodoCardProps) {
+    const [isCompleted, setIsCompleted] = useState(completed);
     const { toast } = useToast();
+    const [completedMutation] = useCompletedTodoMutation();
     function handleDelete() {
         toast({
             title: "Todo Deleted",
@@ -69,6 +72,23 @@ export default function TodoCard({
         });
     }
 
+    async function handleCompleted() {
+        try {
+            const { data } = await completedMutation(_id);
+            console.log(data);
+            setIsCompleted(data.completed);
+            toast({
+                title: isCompleted
+                    ? `${title} Completed Wohh!`
+                    : `${title} to be done.`,
+            });
+        } catch (error) {
+            toast({
+                title: "Updation Failed due to Server error.",
+            });
+        }
+    }
+
     return (
         <Card className="hover:bg-gray-300 transition duration-100 ease-in-out ">
             <CardHeader className="flex flex-row justify-between">
@@ -76,7 +96,10 @@ export default function TodoCard({
                     <CardTitle>{title}</CardTitle>
                     <CardDescription>{description}</CardDescription>
                 </div>
-                <Checkbox />
+                <Checkbox
+                    onCheckedChange={handleCompleted}
+                    checked={isCompleted}
+                />
             </CardHeader>
             <CardContent>
                 <Dialog>
@@ -89,10 +112,10 @@ export default function TodoCard({
                             <DialogDescription>
                                 {resources && (
                                     <ul className="flex flex-col">
-                                        {resources.map(({ name, link }) => {
+                                        {resources.map(({ name, link }, i) => {
                                             return (
                                                 <ListItem
-                                                    key={link}
+                                                    key={i}
                                                     name={name}
                                                     link={link}
                                                 />

@@ -16,12 +16,18 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-
+import { useToast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "@radix-ui/react-label";
 
 export default function NewTodoCard() {
+    const { toast } = useToast();
+    function handleSubmit() {
+        toast({
+            title: "Added New Todo ",
+        });
+    }
     return (
         <Card className="bg-gray-200 flex justify-center items-center">
             <Dialog>
@@ -64,7 +70,9 @@ export default function NewTodoCard() {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit">Add</Button>
+                        <Button type="submit" onClick={handleSubmit}>
+                            Add
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

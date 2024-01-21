@@ -34,9 +34,10 @@ router.post("/create", (req, res) => {
 
 // Update completed by id
 router.put("/completed/:id", (req, res) => {
-    updateTodo(req.params.id);
+    const existingTodo = updateTodo(req.params.id);
     res.status(200).json({
         msg: "UPDATE Done",
+        completed: existingTodo.completed,
     });
 });
 
