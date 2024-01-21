@@ -4,6 +4,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import { useGetAllTodosQuery } from "@/app/api/todoApi";
+import NewTodoCard from "@/components/NewTodoCard";
+import Shimmer from "@/components/Shimmer";
 
 export default function Home() {
     const email = useSelector((state: RootState) => state.root.auth.email);
@@ -14,7 +16,7 @@ export default function Home() {
         });
     }, []);
     const { data, isFetching } = useGetAllTodosQuery();
-    if (isFetching) return <p>Loading</p>;
+    if (isFetching) return <Shimmer />;
     const { todos } = data;
 
     return (
@@ -33,6 +35,7 @@ export default function Home() {
                         />
                     );
                 })}
+                <NewTodoCard />
             </div>
         </div>
     );
