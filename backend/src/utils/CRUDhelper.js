@@ -33,6 +33,36 @@ async function updateTodo(id) {
     return existingTodo;
 }
 
+async function updateTodoBody(id, updateObject) {
+    try {
+        const updatingTodo = await Todo.findByIdAndUpdate(id, updateObject, {
+            new: true,
+            runValidators: true,
+        });
+    } catch (error) {
+        return error.message;
+    }
+}
+
+async function updateResource(id, resource) {
+    try {
+        const updatedTodo = await Todo.findByIdAndUpdate(
+            id,
+            { $push: { resources: resource } },
+            { new: true, runValidators: true }
+        );
+        if (!updatedTodo) {
+            console.error("Todo not found.");
+            return null;
+        }
+        console.log("Updated Todo:", updatedTodo);
+        return updatedTodo;
+    } catch (error) {
+        console.error("Error updating resource:", error);
+        throw error;
+    }
+}
+
 async function deleteTodoById(id) {
     await Todo.deleteOne({ id: id });
 }
@@ -42,4 +72,6 @@ module.exports = {
     createNewTodo,
     updateTodo,
     deleteTodoById,
+    updateTodoBody,
+    updateResource,
 };

@@ -1,6 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 
+export type TUpdateTodoBody = {
+    title?: string;
+    description?: string;
+};
+
 export const todoApi = createApi({
     reducerPath: "todoApi",
     baseQuery: fetchBaseQuery({
@@ -10,6 +15,7 @@ export const todoApi = createApi({
             const token = authState ? authState.token : null;
             if (token) {
                 headers.set("authorization", token);
+                headers.set("Content-Type", "application/json");
                 return headers;
             }
         },
@@ -36,9 +42,20 @@ export const todoApi = createApi({
             invalidatesTags: ["Todos"],
         }),
         updateTodo: builder.mutation({
-            query: (id) => ({
-                url: `update/${id}`,
+            query: ({ _id, updateData }) => {
+                return {
+                    url: `update/${_id}`,
+                    method: "PUT",
+                    body: updateData,
+                };
+            },
+            invalidatesTags: ["Todos"],
+        }),
+        updateResourceTodo: builder.mutation({
+            query: ({ _id, resource }) => ({
+                url: `resource/${_id}`,
                 method: "PUT",
+                body: resource,
             }),
             invalidatesTags: ["Todos"],
         }),
@@ -58,5 +75,6 @@ export const {
     useDeleteTodoMutation,
     useUpdateTodoMutation,
     useCompletedTodoMutation,
+    useUpdateResourceTodoMutation,
     useLazyGetAllTodosQuery,
 } = todoApi;

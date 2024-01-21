@@ -20,18 +20,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-    SheetFooter,
-    SheetClose,
-    SheetOverlay,
-    SheetPortal,
-} from "@/components/ui/sheet";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "./ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,6 +29,7 @@ import { useToast } from "./ui/use-toast";
 import { TrashIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import ListItem from "./ListItem";
 import { useCompletedTodoMutation } from "@/app/api/todoApi";
+import UpdateTodoSheet from "./UpdateTodoSheet";
 
 export type TTodoCardProps = {
     description: string;
@@ -62,13 +52,6 @@ export default function TodoCard({
     function handleDelete() {
         toast({
             title: "Todo Deleted",
-        });
-    }
-
-    function handleUpdate() {
-        toast({
-            title: "Todo Updated",
-            description: "Update all the changes",
         });
     }
 
@@ -170,58 +153,11 @@ export default function TodoCard({
                 </Dialog>
             </CardContent>
             <CardFooter className="flex justify-end gap-3">
-                {/* <Button>
-                    <Pencil2Icon width="30" height="20" />
-                </Button> */}
-                <Sheet>
-                    <SheetTrigger asChild>
-                        <Button>
-                            {" "}
-                            <Pencil2Icon width="30" height="20" />
-                        </Button>
-                    </SheetTrigger>
-                    <SheetContent>
-                        <SheetHeader>
-                            <SheetTitle>Edit Todo</SheetTitle>
-                            <SheetDescription>
-                                Make changes to your Todo here. Click save when
-                                you're done.
-                            </SheetDescription>
-                        </SheetHeader>
-                        <div className="grid gap-4 py-4">
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="title" className="text-right">
-                                    Title
-                                </Label>
-                                <Input
-                                    id="title"
-                                    value="TodoTitle"
-                                    className="col-span-3"
-                                />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label
-                                    htmlFor="description"
-                                    className="text-right"
-                                >
-                                    Description
-                                </Label>
-                                <Input
-                                    id="description"
-                                    value="tododeascription"
-                                    className="col-span-3"
-                                />
-                            </div>
-                        </div>
-                        <SheetFooter>
-                            <SheetClose asChild>
-                                <Button type="submit" onClick={handleUpdate}>
-                                    Save changes
-                                </Button>
-                            </SheetClose>
-                        </SheetFooter>
-                    </SheetContent>
-                </Sheet>
+                <UpdateTodoSheet
+                    title={title}
+                    description={description}
+                    _id={_id}
+                />
                 <Button onClick={handleDelete}>
                     <TrashIcon width="30" height="20" />
                 </Button>

@@ -9,6 +9,8 @@ const {
     updateTodo,
     deleteTodoById,
     deleteTodoByTitle,
+    updateTodoBody,
+    updateResource,
 } = require("../utils/CRUDhelper");
 
 router.use(authenticateToken);
@@ -45,27 +47,31 @@ router.put("/completed/:id", (req, res) => {
 router.put("/update/:id", async (req, res) => {
     const { id } = req.params;
     try {
-        const existingTodo = await Todo.findById(id);
-        if (!existingTodo) {
-            return res.status(404).json({ error: "Todo not found" });
-        }
+        const updateObject = {};
         if (req.body.title) {
-            existingTodo.title = req.body.title;
-        }
-        if (req.body.completed !== undefined) {
-            existingTodo.completed = req.body.completed;
+            updateObject.title = req.body.title;
         }
         if (req.body.description) {
-            existingTodo.description = req.body.description;
+            updateObject.description = req.body.description;
         }
-        if (req.body.resources) {
-            existingTodo.resources.push(...req.body.resources);
-        }
-
+        const updatedTodo = await updateTodoBody(id, updateObject);
         // Save the updated todo to the database
-        const updatedTodo = await existingTodo.save();
 
-        res.json(updatedTodo);
+        res.status(200).json(updatedTodo);
+    } catch (error) {
+        console.error("Error updating todo:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+router.put("/resource/:id", async (req, res) => {
+    const { id } = req.params;
+    const resource = req.body.resource;
+    try {
+        const updatedTodo = await updateResource(id, resource);
+        // Save the updated todo to the database
+
+        res.status(200).json(updatedTodo);
     } catch (error) {
         console.error("Error updating todo:", error);
         res.status(500).json({ error: "Internal Server Error" });
