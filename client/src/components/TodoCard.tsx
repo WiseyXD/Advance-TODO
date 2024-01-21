@@ -39,10 +39,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "./ui/use-toast";
 import { TrashIcon, Pencil2Icon } from "@radix-ui/react-icons";
+import ListItem from "./ListItem";
 
-export default function TodoCard() {
+export type TTodoCardProps = {
+    description: string;
+    title: string;
+    resources: [name: string, link: string];
+    _id: string;
+    completed: boolean;
+};
+
+export default function TodoCard({
+    description,
+    title,
+    resources,
+    _id,
+    completed,
+}: TTodoCardProps) {
     const { toast } = useToast();
-
     function handleDelete() {
         toast({
             title: "Todo Deleted",
@@ -59,9 +73,9 @@ export default function TodoCard() {
     return (
         <Card className="hover:bg-gray-300 transition duration-100 ease-in-out ">
             <CardHeader className="flex flex-row justify-between">
-                <div>
-                    <CardTitle>TodoTitle</CardTitle>
-                    <CardDescription>Todo Description</CardDescription>
+                <div className="flex flex-col gap-1">
+                    <CardTitle>{title}</CardTitle>
+                    <CardDescription>{description}</CardDescription>
                 </div>
                 <Checkbox />
             </CardHeader>
@@ -72,15 +86,18 @@ export default function TodoCard() {
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>TodoTitle</DialogTitle>
+                            <DialogTitle>{title}</DialogTitle>
                             <DialogDescription>
                                 <ul className="flex flex-col">
-                                    <li className="flex gap-3">
-                                        <p>Resource Name</p>
-                                        <a href="" className="hover:underline">
-                                            Link
-                                        </a>
-                                    </li>
+                                    {resources.map(({ name, link }) => {
+                                        return (
+                                            <ListItem
+                                                key={link}
+                                                name={name}
+                                                link={link}
+                                            />
+                                        );
+                                    })}
                                 </ul>
                                 <Popover>
                                     <PopoverTrigger asChild>
