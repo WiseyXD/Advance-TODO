@@ -42,7 +42,6 @@ export default function UpdateTodoSheet({
                 return;
             }
             console.log(updateData);
-
             const { data } = await updateMutation({ _id, updateData });
             // console.log(data);
             toast({
