@@ -47,7 +47,7 @@ async function updateTodoBody(id, updateObject) {
 async function updateResource(id, resource) {
     try {
         const updatedTodo = await Todo.findByIdAndUpdate(
-            id,
+            { _id: id },
             { $push: { resources: resource } },
             { new: true, runValidators: true }
         );
@@ -55,7 +55,6 @@ async function updateResource(id, resource) {
             console.error("Todo not found.");
             return null;
         }
-        console.log("Updated Todo:", updatedTodo);
         return updatedTodo;
     } catch (error) {
         console.error("Error updating resource:", error);

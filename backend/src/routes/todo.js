@@ -64,9 +64,12 @@ router.put("/update/:id", async (req, res) => {
     }
 });
 
-router.put("/resource/:id", async (req, res) => {
+router.post("/resource/:id", async (req, res) => {
     const { id } = req.params;
-    const resource = req.body.resource;
+    const resource = {
+        name: req.body.name,
+        link: req.body.link,
+    };
     try {
         const updatedTodo = await updateResource(id, resource);
         // Save the updated todo to the database
