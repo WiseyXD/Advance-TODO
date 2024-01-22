@@ -22,7 +22,9 @@ import { Link } from "react-router-dom";
 
 const loginSchema = z.object({
     email: z.string().email().min(10).max(50),
-    password: z.string().min(5),
+    password: z
+        .string()
+        .min(5, { message: "Must be 5 or more characters long" }),
 });
 
 export default function Login() {
@@ -60,59 +62,62 @@ export default function Login() {
 
     return (
         <div className="min-h-[80vh] flex justify-center items-center">
-            <Form {...form}>
-                <div className="lg:max-w-md sm:w-420 flex-center flex-col">
-                    <img src="/assets/images/logo.svg" alt="" />
-
-                    <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-                        Login to your account
-                    </h2>
-                    <p className="text-light-3 small-medium md:base-regular mt-2">
-                        To use MasterNotes please login
-                    </p>
-                    <form
-                        onSubmit={form.handleSubmit(onSubmit)}
-                        className="flex flex-col gap-5 w-full mt-4"
-                    >
-                        <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Email</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="email"
-                                            className="shad-input"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="password"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Password</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="password"
-                                            className="shad-input"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <Button type="submit" className="shad-button_primary">
+            <div className="bg-white rounded-lg p-8 max-w-md shadow-md border border-slate-400">
+                <Form {...form}>
+                    <div className="flex flex-col">
+                        <h2 className="text-2xl text-center font-bold">
                             Login
-                        </Button>
-                        <p className="text-small text-light-2 text-center">
-                            New to MasterNotes?
+                        </h2>
+                        <p className="text-light-3 small-medium md:base-regular my-2">
+                            To use MasterNotes please login
+                        </p>
+                        <form
+                            onSubmit={form.handleSubmit(onSubmit)}
+                            className="flex flex-col gap-5"
+                        >
+                            <FormField
+                                control={form.control}
+                                name="email"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="email"
+                                                className="shad-input"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Password</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="password"
+                                                className="shad-input"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <Button
+                                type="submit"
+                                className="shad-button_primary"
+                            >
+                                Login
+                            </Button>
+                        </form>
+                        <p className="text-small text-light-2 text-center mt-3">
+                            New to MasterNotes?{" "}
                             <Link
                                 to="/signup"
                                 className="text-primary-500 text-small-semibold ml-1 hover:underline"
@@ -120,9 +125,9 @@ export default function Login() {
                                 Signup
                             </Link>
                         </p>
-                    </form>
-                </div>
-            </Form>
+                    </div>
+                </Form>
+            </div>
         </div>
     );
 }

@@ -66,7 +66,7 @@ export default function Resources({ title, _id, resources }: TResourceProps) {
                     <DialogTitle>{title}</DialogTitle>
                     <DialogDescription>
                         {resources && (
-                            <ul className="flex flex-col">
+                            <ul className="flex flex-col pt-1 pb-2">
                                 {resources.map(({ name, link }, i) => {
                                     return (
                                         <ListItem
