@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "./app/store";
 import { Toaster } from "./components/ui/toaster";
 import { Separator } from "@/components/ui/separator";
+import BuyPremium from "./pages/BuyPremium";
 function App() {
     const isAuthorized = useSelector(
         (state: RootState) => state.root.auth.token
@@ -46,6 +47,16 @@ function App() {
                             element={
                                 isAuthorized ? (
                                     <Home />
+                                ) : (
+                                    <Navigate to={"/login"} />
+                                )
+                            }
+                        />
+                        <Route
+                            path="/premium"
+                            element={
+                                isAuthorized ? (
+                                    <BuyPremium />
                                 ) : (
                                     <Navigate to={"/login"} />
                                 )
