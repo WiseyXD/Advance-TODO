@@ -65,7 +65,7 @@ export default function NewTodoCard() {
         }
     }
     return (
-        <Card className="bg-gray-200 flex justify-center items-center">
+        <Card className="bg-gray-200 flex justify-center items-center h-[230px]">
             <Dialog>
                 <DialogTrigger asChild>
                     <Button>Add New Todo</Button>
