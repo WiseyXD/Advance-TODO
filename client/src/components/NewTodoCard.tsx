@@ -63,7 +63,7 @@ export default function NewTodoCard() {
             });
         } catch (error) {
             toast({
-                title: "Error Occured while creating a new Todo , only 10 Todo can be create in free tier",
+                title: "Error Occured while creating a new Todo , only 10 Todo can be created in free tier",
                 variant: "destructive",
             });
         }

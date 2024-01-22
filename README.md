@@ -7,7 +7,7 @@
 -   [x] Update view
 -   [x] View all todo list
 -   [x] Dark and light mode
--   [ ] Create todo (limit 10 todos for free version)
+-   [x] Create todo (limit 10 todos for free version)
 -   [ ] Upgrade for more than 10 todos
 
 ### As a admin/super admin, I can login into the application

@@ -13,8 +13,7 @@ async function readAllTodos(email) {
 }
 
 async function createNewTodo(email, title, description, completed, resource) {
-    const user = await User.find({ email });
-
+    const user = await User.findOne({ email });
     if (!user.premium && (await Todo.countDocuments({ email: email })) >= 10) {
         const message = "Free tier users can only create 10 Todos";
         return message;
