@@ -22,17 +22,34 @@ router.get("/", async (req, res) => {
     res.status(200).json({ todos });
 });
 
-router.post("/create", (req, res) => {
-    console.log(req.body);
-    const title = req.body.title;
-    const description = req.body.description;
-    const completed = false;
-    const resource = req.body.resource;
-    const email = req.email;
-    createNewTodo(email, title, description, completed, resource);
-    res.status(201).json({
-        msg: "Created a Todo",
-    });
+router.post("/create", async (req, res) => {
+    try {
+        const title = req.body.title;
+        const description = req.body.description;
+        const completed = false;
+        const resource = req.body.resource;
+        const email = req.email;
+        const response = await createNewTodo(
+            email,
+            title,
+            description,
+            completed,
+            resource
+        );
+        if (typeof response === "string") {
+            return res.status(403).json({
+                response,
+            });
+        }
+        res.status(201).json({
+            response,
+        });
+    } catch (error) {
+        const msg = error.message;
+        res.status(403).json({
+            msg,
+        });
+    }
 });
 
 // Update completed by id

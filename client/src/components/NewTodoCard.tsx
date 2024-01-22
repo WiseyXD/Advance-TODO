@@ -33,7 +33,7 @@ export default function NewTodoCard() {
     });
     const [createMutation] = useCreateTodoMutation();
     const { toast } = useToast();
-    function handleSubmit() {
+    async function handleSubmit() {
         try {
             if (
                 newTodoData.title === "" ||
@@ -52,14 +52,18 @@ export default function NewTodoCard() {
                 description: newTodoData.description,
                 resource: resourceData,
             };
-            const { data } = createMutation(newTodo);
+            const { data } = await createMutation(newTodo);
+            console.log(data);
+            if (typeof data.response === "string") {
+                throw Error("Free tier users can only create 10 Todos");
+            }
             toast({
-                title: "Added New Todo ",
+                title: "Todo Created",
                 description: newTodoData.title,
             });
         } catch (error) {
             toast({
-                title: "Error Occured while creating a new Todo",
+                title: "Error Occured while creating a new Todo , only 10 Todo can be create in free tier",
                 variant: "destructive",
             });
         }

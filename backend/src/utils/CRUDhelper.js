@@ -1,4 +1,5 @@
 const Todo = require("../models/todo");
+const User = require("../models/user");
 const { v4: uuidv4 } = require("uuid");
 
 async function readAllTodos(email) {
@@ -11,7 +12,14 @@ async function readAllTodos(email) {
     }
 }
 
-function createNewTodo(email, title, description, completed, resource) {
+async function createNewTodo(email, title, description, completed, resource) {
+    const user = await User.find({ email });
+
+    if (!user.premium && (await Todo.countDocuments({ email: email })) >= 10) {
+        const message = "Free tier users can only create 10 Todos";
+        return message;
+    }
+
     const newTodo = new Todo({
         email,
         title,
@@ -20,6 +28,7 @@ function createNewTodo(email, title, description, completed, resource) {
         resources: [resource],
     });
     newTodo.save();
+    return true;
 }
 
 async function updateTodo(id) {
