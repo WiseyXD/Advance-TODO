@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@/components/theme-provider";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -14,30 +15,44 @@ function App() {
 
     return (
         <>
-            <Toaster />
-            <Navbar isAuthorized={isAuthorized} />
-            <div className="max-w-[90%] w-full mx-auto mt-4">
-                <Routes>
-                    <Route
-                        path="/signup"
-                        element={
-                            !isAuthorized ? <Register /> : <Navigate to={"/"} />
-                        }
-                    />
-                    <Route
-                        path="/login"
-                        element={
-                            !isAuthorized ? <Login /> : <Navigate to={"/"} />
-                        }
-                    />
-                    <Route
-                        path="/"
-                        element={
-                            isAuthorized ? <Home /> : <Navigate to={"/login"} />
-                        }
-                    />
-                </Routes>
-            </div>
+            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+                <Toaster />
+                <Navbar isAuthorized={isAuthorized} />
+                <div className="max-w-[90%] w-full mx-auto mt-4">
+                    <Routes>
+                        <Route
+                            path="/signup"
+                            element={
+                                !isAuthorized ? (
+                                    <Register />
+                                ) : (
+                                    <Navigate to={"/"} />
+                                )
+                            }
+                        />
+                        <Route
+                            path="/login"
+                            element={
+                                !isAuthorized ? (
+                                    <Login />
+                                ) : (
+                                    <Navigate to={"/"} />
+                                )
+                            }
+                        />
+                        <Route
+                            path="/"
+                            element={
+                                isAuthorized ? (
+                                    <Home />
+                                ) : (
+                                    <Navigate to={"/login"} />
+                                )
+                            }
+                        />
+                    </Routes>
+                </div>
+            </ThemeProvider>
         </>
     );
 }

@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { useDispatch } from "react-redux";
 import { unsetAuth } from "@/app/Slices/authSlice";
 import { RootState } from "@/app/store";
+import { ModeToggle } from "./mode-toggle";
 
 type NavbarProps = {
     isAuthorized: null | string;
@@ -17,7 +18,8 @@ export default function Navbar({ isAuthorized }: NavbarProps) {
         <div className="flex justify-between items-center px-2 py-2 bg-slate-600">
             <div className="text-2xl font-semibold">MasterNotes</div>
             {isAuthorized ? (
-                <div>
+                <div className="flex gap-4">
+                    <ModeToggle />
                     <Button onClick={handleLogout}>Logout</Button>
                 </div>
             ) : (
