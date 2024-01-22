@@ -42,6 +42,7 @@ export default function Register() {
     const [isLoading, setIsLoading] = useState(false);
 
     async function onSubmit(values: z.infer<typeof registerSchema>) {
+        setIsLoading(true);
         if (!(values.password == values.rePassword)) {
             alert("Password didnt match");
             return;
@@ -130,6 +131,7 @@ export default function Register() {
                             <Button
                                 type="submit"
                                 className="shad-button_primary"
+                                disabled={isLoading}
                             >
                                 Signup
                             </Button>

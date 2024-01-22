@@ -2,14 +2,12 @@ import { useState } from "react";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { useLoginMutation } from "@/app/api/authApi";
@@ -41,6 +39,7 @@ export default function Login() {
     const dispatch = useDispatch();
 
     async function onSubmit(values: z.infer<typeof loginSchema>) {
+        setIsLoading(true);
         const { email, password } = values;
         const { data } = await loginMutation({
             email,
@@ -112,6 +111,7 @@ export default function Login() {
                             <Button
                                 type="submit"
                                 className="shad-button_primary"
+                                disabled={isLoading}
                             >
                                 Login
                             </Button>
