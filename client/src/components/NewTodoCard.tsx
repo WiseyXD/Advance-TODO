@@ -65,7 +65,7 @@ export default function NewTodoCard() {
         }
     }
     return (
-        <Card className="bg-gray-200 flex justify-center items-center h-[230px]">
+        <Card className="flex justify-center items-center h-[230px]">
             <Dialog>
                 <DialogTrigger asChild>
                     <Button>Add New Todo</Button>
@@ -146,7 +146,11 @@ export default function NewTodoCard() {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit" onClick={handleSubmit}>
+                        <Button
+                            type="submit"
+                            onClick={handleSubmit}
+                            variant={"outline"}
+                        >
                             Add
                         </Button>
                     </DialogFooter>

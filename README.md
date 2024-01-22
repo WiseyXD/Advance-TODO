@@ -6,7 +6,7 @@
 -   [x] Delete todo
 -   [x] Update view
 -   [x] View all todo list
--   [ ] Dark and light mode
+-   [x] Dark and light mode
 -   [ ] Create todo (limit 10 todos for free version)
 -   [ ] Upgrade for more than 10 todos
 

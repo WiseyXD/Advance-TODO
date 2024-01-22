@@ -57,7 +57,7 @@ export default function UpdateTodoSheet({
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button>
+                <Button variant={"outline"}>
                     {" "}
                     <Pencil2Icon width="30" height="20" />
                 </Button>
@@ -106,7 +106,11 @@ export default function UpdateTodoSheet({
                 </div>
                 <SheetFooter>
                     <SheetClose asChild>
-                        <Button type="submit" onClick={handleUpdate}>
+                        <Button
+                            type="submit"
+                            onClick={handleUpdate}
+                            variant={"outline"}
+                        >
                             Save changes
                         </Button>
                     </SheetClose>

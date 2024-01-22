@@ -63,7 +63,7 @@ export default function Register() {
     }
     return (
         <div className="min-h-[80vh] flex justify-center items-center">
-            <div className="bg-white rounded-lg p-8 max-w-md shadow-md border border-slate-400">
+            <div className=" rounded-lg p-8 max-w-md shadow-md border border-slate-400">
                 <Form {...form}>
                     <div className="sm:w-420 flex-center flex-col">
                         <h2 className="text-2xl text-center font-bold">

@@ -59,7 +59,7 @@ export default function Resources({ title, _id, resources }: TResourceProps) {
     return (
         <Dialog>
             <DialogTrigger>
-                <Button>Check Resources</Button>
+                <Button variant={"outline"}>Check Resources</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -124,7 +124,10 @@ export default function Resources({ title, _id, resources }: TResourceProps) {
                                             />
                                         </div>
                                         <div className="grid grid-cols-1 items-center">
-                                            <Button onClick={handleSubmit}>
+                                            <Button
+                                                onClick={handleSubmit}
+                                                variant={"outline"}
+                                            >
                                                 Add
                                             </Button>
                                         </div>

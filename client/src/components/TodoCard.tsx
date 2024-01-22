@@ -62,7 +62,7 @@ export default function TodoCard({
     }
 
     return (
-        <Card className="hover:bg-gray-300 transition duration-100 ease-in-out ">
+        <Card className="transition duration-100 ease-in-out ">
             <CardHeader className="flex flex-row justify-between">
                 <div className="flex flex-col gap-1">
                     <CardTitle>{title}</CardTitle>
@@ -82,7 +82,7 @@ export default function TodoCard({
                     description={description}
                     _id={_id}
                 />
-                <Button onClick={handleDelete}>
+                <Button onClick={handleDelete} variant={"outline"}>
                     <TrashIcon width="30" height="20" />
                 </Button>
             </CardFooter>

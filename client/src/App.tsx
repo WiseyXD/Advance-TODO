@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar";
 import { useSelector } from "react-redux";
 import { RootState } from "./app/store";
 import { Toaster } from "./components/ui/toaster";
-
+import { Separator } from "@/components/ui/separator";
 function App() {
     const isAuthorized = useSelector(
         (state: RootState) => state.root.auth.token
@@ -18,6 +18,7 @@ function App() {
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
                 <Toaster />
                 <Navbar isAuthorized={isAuthorized} />
+                <Separator />
                 <div className="max-w-[90%] w-full mx-auto mt-4">
                     <Routes>
                         <Route
