@@ -82,6 +82,7 @@ router.put("/update/:id", async (req, res) => {
     }
 });
 
+// Add resource
 router.post("/resource/:id", async (req, res) => {
     const { id } = req.params;
     const resource = {
@@ -99,6 +100,7 @@ router.post("/resource/:id", async (req, res) => {
     }
 });
 
+// delete todo
 router.delete("/delete/:id", authenticateToken, async (req, res) => {
     deleteTodoById(req.params.id);
     res.status(200).json({
