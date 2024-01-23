@@ -8,6 +8,7 @@ const PORT = 4000;
 
 const userRoutes = require("./routes/user");
 const todoRoutes = require("./routes/todo");
+const adminRoutes = require("./routes/admin");
 const premiumRoutes = require("./routes/premium");
 
 mongoose
@@ -22,6 +23,7 @@ app.use(express.json());
 
 app.use("/user", userRoutes);
 app.use("/todo", todoRoutes);
+app.use("/admin", adminRoutes);
 app.use("/premium", premiumRoutes);
 
 app.listen(PORT, () => {
