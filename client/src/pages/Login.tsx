@@ -52,9 +52,11 @@ export default function Login() {
                 title: "Login Failed",
                 description: "Invalid Credentials",
             });
+            setIsLoading(false);
             return;
         }
         console.log(data);
+        setIsLoading(false);
         form.reset();
         dispatch(setAuth(data));
     }

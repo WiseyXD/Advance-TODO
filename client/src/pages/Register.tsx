@@ -55,9 +55,11 @@ export default function Register() {
                 title: "Registration Failed",
                 description: "UserAlready Exists",
             });
+            setIsLoading(false);
             return;
         }
         console.log(data);
+        setIsLoading(false);
         form.reset();
         navigate("/login");
     }
