@@ -14,10 +14,10 @@
 
 ### As a admin/super admin, I can login into the application
 
--   [ ] admin, and super admin roles
--   [ ] Simple login
+-   [x] admin, and super admin roles
+-   [x] Simple login
 -   [ ] Greetings with the username
--   [ ] Connect to a database for the credential module
+-   [x] Connect to a database for the credential module
 -   [ ] See all users and also thier Todos
 -   [ ] add and delete todos for users
 -   [ ] Edit profile page
