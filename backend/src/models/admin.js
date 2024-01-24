@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
+// Null Day
 const adminSchema = new Schema({
     email: {
         type: String,
