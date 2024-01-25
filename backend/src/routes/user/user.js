@@ -5,7 +5,7 @@ const {
     checkUserInDB,
     JWTtoken,
     secretKey,
-} = require("../service/auth");
+} = require("../../service/auth");
 
 router.post("/signup", async (req, res) => {
     const email = req.body.email;

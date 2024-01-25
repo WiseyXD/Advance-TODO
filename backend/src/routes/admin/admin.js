@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { createAdmin, checkAdminInDB } = require("../service/adminAuth");
-const { JWTtoken, secretKey } = require("../service/auth");
+const { createAdmin, checkAdminInDB } = require("../../service/adminAuth");
+const { JWTtoken, secretKey } = require("../../service/auth");
 
 router.post("/signup", async (req, res) => {
     const email = req.body.email;

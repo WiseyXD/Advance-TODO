@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const authenticateToken = require("../middleware/user");
-const Todo = require("../models/todo");
+const authenticateToken = require("../../middleware/user");
+const Todo = require("../../models/todo");
 
 const {
     readAllTodos,
@@ -11,7 +11,7 @@ const {
     deleteTodoByTitle,
     updateTodoBody,
     updateResource,
-} = require("../utils/CRUDhelper");
+} = require("../../utils/CRUDhelper");
 
 router.use(authenticateToken);
 
