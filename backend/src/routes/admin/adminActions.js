@@ -44,6 +44,7 @@ router.post("/todos/create/:userId", async (req, res) => {
     const description = req.body.description;
     const completed = false;
     const resource = req.body.resource;
+    const adminGiven = true;
     try {
         const user = await User.findOne({ _id: userId });
         const email = user.email;
@@ -52,7 +53,8 @@ router.post("/todos/create/:userId", async (req, res) => {
             title,
             description,
             completed,
-            resource
+            resource,
+            adminGiven
         );
         if (typeof response === "string") {
             return res.status(403).json({

@@ -1,18 +1,21 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Register from "./pages/user/Register";
+import Login from "./pages/user/Login";
+import Home from "./pages/user/Home";
 import Navbar from "./components/Navbar";
 import { useSelector } from "react-redux";
 import { RootState } from "./app/store";
 import { Toaster } from "./components/ui/toaster";
 import { Separator } from "@/components/ui/separator";
-import BuyPremium from "./pages/BuyPremium";
+import BuyPremium from "./pages/user/BuyPremium";
+import AdminSignup from "./pages/admin/AdminSignup";
+import AdminLogin from "./pages/admin/AdminLogin";
 function App() {
     const isAuthorized = useSelector(
         (state: RootState) => state.root.auth.token
     );
+    const isAdmin = useSelector((state: RootState) => state.root.auth.admin);
 
     return (
         <>
@@ -59,6 +62,37 @@ function App() {
                                     <BuyPremium />
                                 ) : (
                                     <Navigate to={"/login"} />
+                                )
+                            }
+                        />
+                        {/* Admin Routes */}
+                        <Route
+                            path="/admin/signup"
+                            element={
+                                !isAuthorized && isAdmin ? (
+                                    <AdminSignup />
+                                ) : (
+                                    <Navigate to={"/"} />
+                                )
+                            }
+                        />
+                        {/* <Route
+                            path="/admin/login"
+                            element={
+                                !isAuthorized && isAdmin ? (
+                                    <AdminLogin />
+                                ) : (
+                                    <Navigate to={"/"} />
+                                )
+                            }
+                        /> */}
+                        <Route
+                            path="/admin/login"
+                            element={
+                                isAuthorized ? (
+                                    <AdminLogin />
+                                ) : (
+                                    <Navigate to={"/"} />
                                 )
                             }
                         />

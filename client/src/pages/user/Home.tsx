@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import TodoCard from "../components/TodoCard";
+import TodoCard from "../../components/TodoCard";
 import { useToast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSelector } from "react-redux";

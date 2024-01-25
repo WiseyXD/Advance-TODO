@@ -29,11 +29,13 @@ router.post("/create", async (req, res) => {
         const completed = false;
         const resource = req.body.resource;
         const email = req.email;
+        const adminGiven = false;
         const response = await createNewTodo(
             email,
             title,
             description,
             completed,
+            adminGiven,
             resource
         );
         if (typeof response === "string") {

@@ -17,9 +17,9 @@
 -   [x] admin, and super admin roles
 -   [ ] Simple login
 -   [ ] Greetings with the username
--   [ ] Connect to a database for the credential module
--   [ ] See all users and also thier Todos
--   [ ] add and delete todos for users
+-   [x] Connect to a database for the credential module
+-   [x] See all users and also thier Todos
+-   [x] add and delete todos for users
 -   [ ] Edit profile page
 -   [ ] See statistics
 

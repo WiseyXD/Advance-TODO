@@ -29,6 +29,10 @@ const todoSchema = new Schema({
         type: String,
         required: true,
     },
+    adminGiven: {
+        type: Boolean,
+        required: true,
+    },
     resources: {
         type: [resourceSchema],
         required: false,

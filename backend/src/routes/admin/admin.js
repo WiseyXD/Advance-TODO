@@ -30,9 +30,11 @@ router.post("/login", async (req, res) => {
     }
     const token = await JWTtoken(email);
     req.email = email;
+    const admin = true;
     res.status(200).json({
         email,
         token,
+        admin,
     });
 });
 
