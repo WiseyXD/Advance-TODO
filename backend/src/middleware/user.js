@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { secretKey } = require("../service/auth");
+
 function authenticateToken(req, res, next) {
     const token = req.headers.authorization;
     // const token = JSON.parse(localStorage.getItem("token"));
