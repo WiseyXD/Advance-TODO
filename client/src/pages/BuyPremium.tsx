@@ -23,7 +23,7 @@ const BuyPremium = () => {
     return (
         <div>
             <Button variant="outline" onClick={handleSubmit}>
-                Buy Premium
+                <p className="">Buy Premium</p>
             </Button>
         </div>
     );
