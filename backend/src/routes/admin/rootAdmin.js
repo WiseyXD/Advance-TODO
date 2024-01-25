@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const adminRoutes = require("../user/user");
+const adminRoutes = require("../admin/admin");
 
 router.use("", adminRoutes);
 
