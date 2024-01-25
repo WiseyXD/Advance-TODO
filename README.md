@@ -9,7 +9,7 @@
 -   [x] Dark and light mode
 -   [x] Create todo (limit 10 todos for free version)
 -   [x] Upgrade for more than 10 todos
--   [ ] Revalidate Premium Status after certain amoutn of time
+-   [ ] Revalidate Premium Status after certain amount of time(6months or 1year)
 -   [ ] Cancel Premium Membership at any time
 
 ### As a admin/super admin, I can login into the application
