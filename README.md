@@ -15,8 +15,8 @@
 ### As a admin/super admin, I can login into the application
 
 -   [x] admin, and super admin roles
--   [ ] Simple login
--   [ ] Greetings with the username
+-   [x] Simple login
+-   [x] Greetings with the username
 -   [x] Connect to a database for the credential module
 -   [x] See all users and also thier Todos
 -   [x] add and delete todos for users

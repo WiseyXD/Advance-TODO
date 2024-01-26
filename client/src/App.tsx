@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import BuyPremium from "./pages/user/BuyPremium";
 import AdminSignup from "./pages/admin/AdminSignup";
 import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 function App() {
     const isAuthorized = useSelector(
         (state: RootState) => state.root.auth.token
@@ -49,7 +50,11 @@ function App() {
                             path="/"
                             element={
                                 isAuthorized ? (
-                                    <Home />
+                                    isAdmin ? (
+                                        <Navigate to={"/admin"} />
+                                    ) : (
+                                        <Home />
+                                    )
                                 ) : (
                                     <Navigate to={"/login"} />
                                 )
@@ -59,7 +64,11 @@ function App() {
                             path="/premium"
                             element={
                                 isAuthorized ? (
-                                    <BuyPremium />
+                                    isAdmin ? (
+                                        <Navigate to={"/admin"} />
+                                    ) : (
+                                        <BuyPremium />
+                                    )
                                 ) : (
                                     <Navigate to={"/login"} />
                                 )
@@ -72,7 +81,7 @@ function App() {
                                 !isAuthorized ? (
                                     <AdminSignup />
                                 ) : (
-                                    <Navigate to={"/admin/login"} />
+                                    <Navigate to={"/admin"} />
                                 )
                             }
                         />
@@ -82,7 +91,21 @@ function App() {
                                 !isAuthorized ? (
                                     <AdminLogin />
                                 ) : (
-                                    <Navigate to={"/"} />
+                                    <Navigate to={"/admin"} />
+                                )
+                            }
+                        />
+                        <Route
+                            path="/admin"
+                            element={
+                                isAuthorized ? (
+                                    isAdmin ? (
+                                        <AdminDashboard />
+                                    ) : (
+                                        <Navigate to={"/"} />
+                                    )
+                                ) : (
+                                    <Navigate to={"/admin/login"} />
                                 )
                             }
                         />
