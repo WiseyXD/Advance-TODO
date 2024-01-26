@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import AdminHome from "./AdminHome";
+import AllUsers from "./AllUsers";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
@@ -22,7 +23,9 @@ export default function AdminDashboard() {
                 <TabsContent value="todos">
                     <AdminHome />
                 </TabsContent>
-                <TabsContent value="users">All uSers</TabsContent>
+                <TabsContent value="users">
+                    <AllUsers />
+                </TabsContent>
             </Tabs>
         </>
     );

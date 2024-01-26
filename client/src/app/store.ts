@@ -6,19 +6,22 @@ import { authApi } from "./api/authApi";
 import { authAdminApi } from "./api/adminAuthApi";
 import { todoApi } from "./api/todoApi";
 import { premiumApi } from "./api/premiumApi";
+import { adminActionApi } from "./api/adminActionApi";
 
 const store = configureStore({
     reducer: {
         root: rootReducer,
-        [authApi.reducerPath]: authApi.reducer,
         [authAdminApi.reducerPath]: authAdminApi.reducer,
+        [adminActionApi.reducerPath]: adminActionApi.reducer,
+        [authApi.reducerPath]: authApi.reducer,
         [todoApi.reducerPath]: todoApi.reducer,
         [premiumApi.reducerPath]: premiumApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
-            authApi.middleware,
             authAdminApi.middleware,
+            adminActionApi.middleware,
+            authApi.middleware,
             todoApi.middleware,
             premiumApi.middleware
         ),
