@@ -17,8 +17,7 @@ router.use(authenticateToken);
 
 router.get("/", async (req, res) => {
     const email = req.email;
-    console.log(email);
-    const todos = await readAllTodos({ email });
+    const todos = await readAllTodos(email);
     res.status(200).json({ todos });
 });
 

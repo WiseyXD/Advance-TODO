@@ -1,21 +1,10 @@
-import { useEffect } from "react";
 import TodoCard from "../../components/TodoCard";
-import { useToast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app/store";
 import { useGetAllTodosQuery } from "@/app/api/todoApi";
 import NewTodoCard from "@/components/NewTodoCard";
 import Shimmer from "@/components/Shimmer";
 
-export default function Home() {
-    const email = useSelector((state: RootState) => state.root.auth.email);
-    const { toast } = useToast();
-    useEffect(() => {
-        toast({
-            title: `Welcome Back ${email}`,
-        });
-    }, []);
+export default function AdminHome() {
     const { data, isFetching } = useGetAllTodosQuery();
     if (isFetching) return <Shimmer />;
     console.log(data);
