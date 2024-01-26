@@ -21,7 +21,7 @@
 -   [x] See all users and also thier Todos
 -   [x] add and delete todos for users
 -   [ ] Edit profile page
--   [ ] See statistics
+-   [ ] Admin Dashboard (See statistics)
 
 ### As a super admin, I can create users and have all admin and user functionalities
 
