@@ -69,27 +69,17 @@ function App() {
                         <Route
                             path="/admin/signup"
                             element={
-                                !isAuthorized && isAdmin ? (
+                                !isAuthorized ? (
                                     <AdminSignup />
                                 ) : (
-                                    <Navigate to={"/"} />
+                                    <Navigate to={"/admin/login"} />
                                 )
                             }
                         />
-                        {/* <Route
-                            path="/admin/login"
-                            element={
-                                !isAuthorized && isAdmin ? (
-                                    <AdminLogin />
-                                ) : (
-                                    <Navigate to={"/"} />
-                                )
-                            }
-                        /> */}
                         <Route
                             path="/admin/login"
                             element={
-                                isAuthorized ? (
+                                !isAuthorized ? (
                                     <AdminLogin />
                                 ) : (
                                     <Navigate to={"/"} />

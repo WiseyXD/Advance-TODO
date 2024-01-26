@@ -2,22 +2,20 @@ import { useState } from "react";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { useDispatch } from "react-redux";
-import { useSignupMutation } from "@/app/api/authApi";
 import { Link, useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useAdminSignupMutation } from "@/app/api/adminAuthApi";
 
 const registerSchema = z.object({
     email: z.string().email().min(10).max(50),
@@ -35,8 +33,7 @@ export default function AdminSignup() {
         },
     });
 
-    const [signupMutation] = useSignupMutation();
-    const dispatch = useDispatch();
+    const [signupMutation] = useAdminSignupMutation();
     const navigate = useNavigate();
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);

@@ -10,13 +10,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useLoginMutation } from "@/app/api/authApi";
 import { useDispatch } from "react-redux";
 import { setAuth } from "@/app/Slices/authSlice";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useAdminLoginMutation } from "@/app/api/adminAuthApi";
 
 const loginSchema = z.object({
     email: z.string().email().min(10).max(50),
@@ -35,7 +35,7 @@ export default function AdminLogin() {
     });
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
-    const [loginMutation] = useLoginMutation();
+    const [loginMutation] = useAdminLoginMutation();
     const dispatch = useDispatch();
 
     async function onSubmit(values: z.infer<typeof loginSchema>) {
