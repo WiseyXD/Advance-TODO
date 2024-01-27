@@ -1,4 +1,4 @@
-import TodoCard from "../../components/TodoCard";
+import TodoCard from "../TodoCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetAllTodosQuery } from "@/app/api/todoApi";
 import NewTodoCard from "@/components/NewTodoCard";

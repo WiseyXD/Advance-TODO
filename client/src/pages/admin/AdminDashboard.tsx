@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import AdminHome from "./AdminHome";
+import AdminHome from "../../components/admin/AdminHome";
 import AllUsers from "./AllUsers";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSelector } from "react-redux";
