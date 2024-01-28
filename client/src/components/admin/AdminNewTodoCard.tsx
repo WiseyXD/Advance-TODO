@@ -22,8 +22,11 @@ import { useCreateAdminTodoMutation } from "@/app/api/adminActionApi";
 import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useSelector } from "react-redux";
 
 export default function AdminNewTodoCard() {
+    const userId = useSelector((state) => state.root.currentUser._id);
+
     const [newTodoData, setNewTodoData] = useState({
         title: "",
         description: "",
@@ -53,8 +56,9 @@ export default function AdminNewTodoCard() {
                 description: newTodoData.description,
                 resource: resourceData,
             };
+            // Change Id
             const { data } = await createMutation({
-                id: "65a37797b33eb41486e5e6da",
+                id: userId,
                 credentials: newTodo,
             });
             console.log(data);

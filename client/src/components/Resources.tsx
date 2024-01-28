@@ -18,6 +18,8 @@ import { Label } from "@/components/ui/label";
 import { toast, useToast } from "./ui/use-toast";
 import ListItem from "./ListItem";
 import { useUpdateResourceTodoMutation } from "@/app/api/todoApi";
+import { useGetCurrentUserTodosQuery } from "@/app/api/adminActionApi";
+import { useSelector } from "react-redux";
 
 type TResourceProps = {
     title: string;
@@ -31,12 +33,14 @@ type TResourceProps = {
 };
 
 export default function Resources({ title, _id, resources }: TResourceProps) {
+    const userId = useSelector((state) => state.root.currentUser._id);
     const [resource, setResource] = useState({
         name: "",
         link: "",
     });
 
     const [resourceMutation] = useUpdateResourceTodoMutation();
+    const { refetch } = useGetCurrentUserTodosQuery(userId);
     async function handleSubmit() {
         try {
             if (resource.name === "" || resource.link === "") {
@@ -51,6 +55,7 @@ export default function Resources({ title, _id, resources }: TResourceProps) {
             toast({
                 title: resource.name + "resource Added Successfully",
             });
+            refetch();
         } catch (error) {
             console.log(error);
         }

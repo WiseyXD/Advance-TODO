@@ -18,6 +18,8 @@ import {
 } from "@/app/api/todoApi";
 import UpdateTodoSheet from "./UpdateTodoSheet";
 import Resources from "./Resources";
+import { useGetCurrentUserTodosQuery } from "@/app/api/adminActionApi";
+import { useSelector } from "react-redux";
 
 export type TTodoCardProps = {
     description: string;
@@ -34,12 +36,15 @@ export default function TodoCard({
     _id,
     completed,
 }: TTodoCardProps) {
+    const userId = useSelector((state) => state.root.currentUser._id);
     const [isCompleted, setIsCompleted] = useState(completed);
     const { toast } = useToast();
     const [completedMutation] = useCompletedTodoMutation();
     const [deleteMutation] = useDeleteTodoMutation();
+    const { refetch } = useGetCurrentUserTodosQuery(userId);
     async function handleDelete() {
         const { data } = await deleteMutation(_id);
+        refetch();
         toast({
             title: "Todo Deleted",
         });
@@ -54,6 +59,7 @@ export default function TodoCard({
                     ? `${title} Completed Wohh!`
                     : `${title} to be done.`,
             });
+            refetch();
         } catch (error) {
             toast({
                 title: "Updation Failed due to Server error.",

@@ -17,6 +17,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "./ui/use-toast";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import { useUpdateTodoMutation } from "@/app/api/todoApi";
+import { useGetCurrentUserTodosQuery } from "@/app/api/adminActionApi";
+import { useSelector } from "react-redux";
 
 export type TUpdateTodoSheetProps = {
     title: string;
@@ -29,12 +31,14 @@ export default function UpdateTodoSheet({
     description: existingDescription,
     _id,
 }: TUpdateTodoSheetProps) {
+    const userId = useSelector((state) => state.root.currentUser._id);
     const [updateData, setUpdateData] = useState({
         title: existingTitle,
         description: existingDescription,
     });
     const { toast } = useToast();
     const [updateMutation] = useUpdateTodoMutation();
+    const { refetch } = useGetCurrentUserTodosQuery(userId);
     async function handleUpdate() {
         try {
             if (updateData.description === "" || updateData.title === "") {
@@ -43,11 +47,11 @@ export default function UpdateTodoSheet({
             }
             console.log(updateData);
             const { data } = await updateMutation({ _id, updateData });
-            // console.log(data);
             toast({
                 title: "Todo Updated",
                 description: "Update all the changes",
             });
+            refetch();
         } catch (error) {
             toast({
                 title: "Updation Failed due " + error.message,

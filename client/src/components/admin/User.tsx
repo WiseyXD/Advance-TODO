@@ -21,7 +21,6 @@ type TUserProps = {
 };
 
 export default function User({ user }: TUserProps) {
-    console.log(user);
     return (
         <>
             <CardHeader>
