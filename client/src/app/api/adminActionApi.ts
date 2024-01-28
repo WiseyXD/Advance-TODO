@@ -15,6 +15,7 @@ export const adminActionApi = createApi({
             }
         },
     }),
+    tagTypes: ["AdminTodos"],
     endpoints: (builder) => ({
         getAllUsers: builder.query({
             query: () => ({
@@ -22,7 +23,26 @@ export const adminActionApi = createApi({
                 method: "GET",
             }),
         }),
+        getCurrentUserTodos: builder.query({
+            query: (id) => ({
+                url: `todos/${id}`,
+                method: "GET",
+            }),
+            providesTags: ["AdminTodos"],
+        }),
+        createAdminTodo: builder.mutation({
+            query: ({ id, credentials }) => ({
+                url: `/todos/create/${id}`,
+                method: "POST",
+                body: credentials,
+            }),
+            invalidatesTags: ["AdminTodos"],
+        }),
     }),
 });
 
-export const { useGetAllUsersQuery } = adminActionApi;
+export const {
+    useGetAllUsersQuery,
+    useGetCurrentUserTodosQuery,
+    useCreateAdminTodoMutation,
+} = adminActionApi;

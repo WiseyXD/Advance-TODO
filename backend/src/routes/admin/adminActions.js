@@ -53,8 +53,8 @@ router.post("/todos/create/:userId", async (req, res) => {
             title,
             description,
             completed,
-            resource,
-            adminGiven
+            adminGiven,
+            resource
         );
         if (typeof response === "string") {
             return res.status(403).json({
