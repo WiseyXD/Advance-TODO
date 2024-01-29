@@ -22,7 +22,7 @@ type TUserProps = {
 
 export default function User({ user }: TUserProps) {
     return (
-        <>
+        <div className="hover:bg-slate-500 hover:ease-in-out hover:duration-300">
             <CardHeader>
                 <CardTitle>{user.email}</CardTitle>
             </CardHeader>
@@ -30,6 +30,6 @@ export default function User({ user }: TUserProps) {
                 <p>Normal User</p>
             </CardFooter>
             <Separator />
-        </>
+        </div>
     );
 }

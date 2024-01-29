@@ -14,12 +14,11 @@ export default function AllUsers() {
     const { users } = data;
     return (
         <>
-            <h1 className="text-3xl">Users</h1>
-            <ResizablePanelGroup direction="horizontal">
-                <ResizablePanel defaultSize={30} minSize={0} maxSize={35}>
+            <ResizablePanelGroup direction="horizontal" className="flex gap-3">
+                <ResizablePanel defaultSize={20} minSize={0} maxSize={20}>
                     <UsersList users={users} />
                 </ResizablePanel>
-                <ResizableHandle />
+                <ResizableHandle withHandle />
                 <ResizablePanel>
                     <CurrentUserTodo />
                 </ResizablePanel>
