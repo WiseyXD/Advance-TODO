@@ -109,6 +109,21 @@ function App() {
                                 )
                             }
                         />
+                        {/* wildcard*/}
+                        <Route
+                            path="/*"
+                            element={
+                                isAuthorized ? (
+                                    isAdmin ? (
+                                        <AdminDashboard />
+                                    ) : (
+                                        <Navigate to={"/"} />
+                                    )
+                                ) : (
+                                    <Navigate to={"/login"} />
+                                )
+                            }
+                        />
                     </Routes>
                 </div>
             </ThemeProvider>
