@@ -53,12 +53,14 @@ export default function TodoCard({
     async function handleCompleted() {
         try {
             const { data } = await completedMutation(_id);
-            await setIsCompleted(data.completed);
-            toast({
-                title: data.completed
-                    ? `${title} Completed Wohh!`
-                    : `${title} to be done.`,
-            });
+            setIsCompleted(data.completed);
+            !isCompleted
+                ? toast({
+                      title: `${title} Completed Wohh!`,
+                  })
+                : toast({
+                      title: `${title} to be done.`,
+                  });
             refetch();
         } catch (error) {
             toast({
