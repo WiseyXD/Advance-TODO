@@ -137,7 +137,7 @@ export default function AdminSignup() {
                             <p className="text-small text-light-2 text-center">
                                 Already Have an Account ?
                                 <Link
-                                    to="/login"
+                                    to="/admin/login"
                                     className="text-primary-500 text-small-semibold ml-1 hover:underline"
                                 >
                                     Log In

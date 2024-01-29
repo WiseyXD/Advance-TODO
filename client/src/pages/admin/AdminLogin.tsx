@@ -121,7 +121,7 @@ export default function AdminLogin() {
                         <p className="text-small text-light-2 text-center mt-3">
                             Dont have a role of Admin?{" "}
                             <Link
-                                to="/signup"
+                                to="/admin/signup"
                                 className="text-primary-500 text-small-semibold ml-1 hover:underline"
                             >
                                 Signup
