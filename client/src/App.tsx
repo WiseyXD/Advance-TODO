@@ -13,6 +13,7 @@ import AdminSignup from "./pages/admin/AdminSignup";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 function App() {
+    // Winning Day
     const isAuthorized = useSelector(
         (state: RootState) => state.root.auth.token
     );

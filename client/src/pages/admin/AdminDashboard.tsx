@@ -15,7 +15,8 @@ export default function AdminDashboard() {
     }, []);
     return (
         <>
-            <Tabs defaultValue="todos" className="">
+            <h1 className="text-3xl font-semibold">Dashboard</h1>
+            <Tabs defaultValue="todos">
                 <TabsList>
                     <TabsTrigger value="todos">Todos</TabsTrigger>
                     <TabsTrigger value="users">Users</TabsTrigger>
