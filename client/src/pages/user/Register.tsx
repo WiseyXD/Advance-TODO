@@ -47,6 +47,7 @@ export default function Register() {
         setIsLoading(true);
         if (!(values.password == values.rePassword)) {
             alert("Password didnt match");
+            setIsLoading(false);
             return;
         }
         const { email, password, username } = values;

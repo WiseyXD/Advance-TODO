@@ -24,9 +24,10 @@ export default function User({ user }: TUserProps) {
     return (
         <div className="hover:bg-slate-500 hover:ease-in-out hover:duration-300">
             <CardHeader>
-                <CardTitle>{user.email}</CardTitle>
+                <CardTitle>{user?.username}</CardTitle>
             </CardHeader>
-            <CardFooter>
+            <CardFooter className="flex flex-col gap-2 items-start">
+                <p>{user.email}</p>
                 <p>Normal User</p>
             </CardFooter>
             <Separator />
