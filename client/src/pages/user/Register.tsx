@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 const registerSchema = z.object({
+    username: z.string().min(5).max(10),
     email: z.string().email().min(10).max(50),
     password: z.string().min(5),
     rePassword: z.string().min(5),
@@ -29,6 +30,7 @@ export default function Register() {
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
+            username: "",
             email: "",
             password: "",
             rePassword: "",
@@ -47,8 +49,8 @@ export default function Register() {
             alert("Password didnt match");
             return;
         }
-        const { email, password } = values;
-        const { data } = await signupMutation({ email, password });
+        const { email, password, username } = values;
+        const { data } = await signupMutation({ email, password, username });
         if (!data) {
             toast({
                 variant: "destructive",
@@ -78,6 +80,23 @@ export default function Register() {
                             onSubmit={form.handleSubmit(onSubmit)}
                             className="flex flex-col gap-5 w-full mt-4"
                         >
+                            <FormField
+                                control={form.control}
+                                name="username"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Username</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="username"
+                                                className="shad-input"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
                             <FormField
                                 control={form.control}
                                 name="email"

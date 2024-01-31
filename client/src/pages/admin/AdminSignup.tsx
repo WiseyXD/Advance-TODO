@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { useAdminSignupMutation } from "@/app/api/adminAuthApi";
 
 const registerSchema = z.object({
+    username: z.string().min(5).max(10),
     email: z.string().email().min(10).max(50),
     password: z.string().min(5),
     rePassword: z.string().min(5),
@@ -27,6 +28,7 @@ export default function AdminSignup() {
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
+            username: "",
             email: "",
             password: "",
             rePassword: "",
@@ -44,13 +46,13 @@ export default function AdminSignup() {
             alert("Password didnt match");
             return;
         }
-        const { email, password } = values;
-        const { data } = await signupMutation({ email, password });
+        const { email, password, username } = values;
+        const { data } = await signupMutation({ email, password, username });
         if (!data) {
             toast({
                 variant: "destructive",
                 title: "Registration Failed",
-                description: "UserAlready Exists",
+                description: "User Already Exists",
             });
             setIsLoading(false);
             return;
@@ -75,6 +77,23 @@ export default function AdminSignup() {
                             onSubmit={form.handleSubmit(onSubmit)}
                             className="flex flex-col gap-5 w-full mt-4"
                         >
+                            <FormField
+                                control={form.control}
+                                name="username"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Username</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="username"
+                                                className="shad-input"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
                             <FormField
                                 control={form.control}
                                 name="email"
