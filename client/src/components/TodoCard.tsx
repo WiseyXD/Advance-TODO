@@ -7,11 +7,16 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
-import { TrashIcon } from "@radix-ui/react-icons";
+import { TrashIcon, PersonIcon } from "@radix-ui/react-icons";
 import {
     useCompletedTodoMutation,
     useDeleteTodoMutation,
@@ -22,6 +27,7 @@ import { useGetCurrentUserTodosQuery } from "@/app/api/adminActionApi";
 import { useSelector } from "react-redux";
 
 export type TTodoCardProps = {
+    adminGiven: boolean;
     description: string;
     title: string;
     resources: [name: string, link: string];
@@ -30,6 +36,7 @@ export type TTodoCardProps = {
 };
 
 export default function TodoCard({
+    adminGiven,
     description,
     title,
     resources,
@@ -70,30 +77,44 @@ export default function TodoCard({
     }
 
     return (
-        <Card className="transition duration-100 ease-in-out ">
-            <CardHeader className="flex flex-row justify-between">
-                <div className="flex flex-col gap-1">
-                    <CardTitle>{title}</CardTitle>
-                    <CardDescription>{description}</CardDescription>
-                </div>
-                <Checkbox
-                    onCheckedChange={handleCompleted}
-                    checked={isCompleted}
-                />
-            </CardHeader>
-            <CardContent>
-                <Resources title={title} _id={_id} resources={resources} />
-            </CardContent>
-            <CardFooter className="flex justify-end gap-3">
-                <UpdateTodoSheet
-                    title={title}
-                    description={description}
-                    _id={_id}
-                />
-                <Button onClick={handleDelete} variant={"outline"}>
-                    <TrashIcon width="30" height="20" />
-                </Button>
-            </CardFooter>
-        </Card>
+        <TooltipProvider>
+            <Card className="transition duration-100 ease-in-out ">
+                <CardHeader className="flex flex-row justify-between">
+                    <div className="flex flex-col gap-1">
+                        <CardTitle>{title}</CardTitle>
+                        <CardDescription>{description}</CardDescription>
+                    </div>
+                    <div className="flex justify-center items-center gap-4">
+                        {adminGiven && (
+                            <Tooltip>
+                                <TooltipTrigger>
+                                    <PersonIcon width={18} height={18} />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Admin Given Todo</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        )}
+                        <Checkbox
+                            onCheckedChange={handleCompleted}
+                            checked={isCompleted}
+                        />
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <Resources title={title} _id={_id} resources={resources} />
+                </CardContent>
+                <CardFooter className="flex justify-end gap-3">
+                    <UpdateTodoSheet
+                        title={title}
+                        description={description}
+                        _id={_id}
+                    />
+                    <Button onClick={handleDelete} variant={"outline"}>
+                        <TrashIcon width="30" height="20" />
+                    </Button>
+                </CardFooter>
+            </Card>
+        </TooltipProvider>
     );
 }

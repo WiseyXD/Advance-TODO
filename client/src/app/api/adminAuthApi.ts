@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 interface Credentials {
     email: string;
     password: string;
+    username: string;
 }
 
 export const authAdminApi = createApi({

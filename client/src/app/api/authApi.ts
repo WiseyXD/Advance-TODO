@@ -1,10 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 interface Credentials {
-    // Define the structure of your credentials object
-    // Adjust the properties according to your actual needs
     email: string;
     password: string;
+    username: string;
 }
 
 export const authApi = createApi({

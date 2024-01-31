@@ -6,10 +6,11 @@ const { JWTtoken, secretKey } = require("../../service/auth");
 router.post("/signup", async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    const existsInDB = await createAdmin(email, password);
+    const username = req.body.username;
+    const existsInDB = await createAdmin(email, password, username);
     if (!existsInDB) {
         res.status(401).json({
-            msg: "Admin is already present in our DB",
+            msg: "Admin with this username or email is already present in our DB",
         });
         return;
     }

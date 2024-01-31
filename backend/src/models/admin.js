@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 // Null Day
 const adminSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
         required: true,
