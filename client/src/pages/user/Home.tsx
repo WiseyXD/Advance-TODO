@@ -31,6 +31,7 @@ export default function Home() {
                         return (
                             <TodoCard
                                 key={todo._id}
+                                adminGiven={todo.adminGiven}
                                 title={todo.title}
                                 description={todo.description}
                                 _id={todo._id}
