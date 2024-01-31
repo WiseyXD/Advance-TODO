@@ -10,7 +10,8 @@ const {
 router.post("/signup", async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    const existsInDB = await createUser(email, password);
+    const username = req.body.username;
+    const existsInDB = await createUser(email, password, username);
     if (!existsInDB) {
         res.status(401).json({
             msg: "User is already present in our DB",
