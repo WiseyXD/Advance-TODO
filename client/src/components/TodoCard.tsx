@@ -88,7 +88,7 @@ export default function TodoCard({
                         {adminGiven && (
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <PersonIcon />
+                                    <PersonIcon width={18} height={18} />
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>Admin Given Todo</p>
