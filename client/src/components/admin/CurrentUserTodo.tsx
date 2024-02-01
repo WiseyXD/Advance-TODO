@@ -11,7 +11,9 @@ import {
 import AdminNewTodoCard from "./AdminNewTodoCard";
 
 export default function Home() {
-    const userId = useSelector((state) => state.root.currentUser._id);
+    const userId = useSelector(
+        (state: RootState) => state.root.currentUser._id
+    );
     const { data, isFetching } = useGetCurrentUserTodosQuery(userId);
     if (isFetching) return <Shimmer />;
     console.log(data);
