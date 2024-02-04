@@ -35,6 +35,7 @@ export default function Home() {
                                 _id={todo._id}
                                 resources={todo.resources}
                                 completed={todo.completed}
+                                priority={todo.priority}
                             />
                         );
                     })}

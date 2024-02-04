@@ -97,6 +97,7 @@ export default function TodoCard({
                                 </TooltipContent>
                             </Tooltip>
                         )}
+                        {priority?.toUpperCase()}
                         <Checkbox
                             onCheckedChange={handleCompleted}
                             checked={isCompleted}
