@@ -19,7 +19,8 @@ async function createNewTodo(
     description,
     completed,
     adminGiven,
-    resource
+    resource,
+    priority
 ) {
     let user = await User.findOne({ email });
     if (!user) {
@@ -37,6 +38,7 @@ async function createNewTodo(
         completed,
         adminGiven,
         resources: [resource],
+        priority,
     });
     newTodo.save();
     return true;

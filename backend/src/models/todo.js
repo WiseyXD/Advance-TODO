@@ -37,6 +37,10 @@ const todoSchema = new Schema({
         type: [resourceSchema],
         required: false,
     },
+    priority: {
+        type: String,
+        required: true,
+    },
 });
 
 const Todo = model("Todo", todoSchema);

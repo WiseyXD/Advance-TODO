@@ -29,6 +29,7 @@ router.post("/create", async (req, res) => {
         const resource = req.body.resource;
         const email = req.email;
         const adminGiven = false;
+        const priority = req.body.priority;
         const response = await createNewTodo(
             email,
             title,

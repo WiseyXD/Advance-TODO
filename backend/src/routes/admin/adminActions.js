@@ -45,6 +45,7 @@ router.post("/todos/create/:userId", async (req, res) => {
     const completed = false;
     const resource = req.body.resource;
     const adminGiven = true;
+    const priority = req.body.priority;
     try {
         const user = await User.findOne({ _id: userId });
         const email = user.email;
@@ -54,7 +55,8 @@ router.post("/todos/create/:userId", async (req, res) => {
             description,
             completed,
             adminGiven,
-            resource
+            resource,
+            priority
         );
         if (typeof response === "string") {
             return res.status(403).json({
