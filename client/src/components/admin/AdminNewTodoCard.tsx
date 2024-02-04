@@ -16,7 +16,13 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Label } from "@radix-ui/react-label";
 import { useCreateAdminTodoMutation } from "@/app/api/adminActionApi";
 import { useToast } from "../ui/use-toast";
@@ -30,6 +36,7 @@ export default function AdminNewTodoCard() {
     const [newTodoData, setNewTodoData] = useState({
         title: "",
         description: "",
+        priority: "mid",
     });
     const [resourceData, setResourceData] = useState({
         name: "",
@@ -42,6 +49,7 @@ export default function AdminNewTodoCard() {
             if (
                 newTodoData.title === "" ||
                 newTodoData.description === "" ||
+                newTodoData.priority === "" ||
                 resourceData.link === "" ||
                 resourceData.name === ""
             ) {
@@ -54,6 +62,7 @@ export default function AdminNewTodoCard() {
             const newTodo = {
                 title: newTodoData.title,
                 description: newTodoData.description,
+                priority: newTodoData.priority,
                 resource: resourceData,
             };
             // Change Id
@@ -155,6 +164,29 @@ export default function AdminNewTodoCard() {
                                     }));
                                 }}
                             />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="priority" className="text-right">
+                                Priority
+                            </Label>
+                            <Select
+                                onValueChange={(value) => {
+                                    setNewTodoData((prevData) => ({
+                                        ...prevData,
+                                        priority: value,
+                                    }));
+                                }}
+                                defaultValue={newTodoData.priority}
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Mid" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="high">High</SelectItem>
+                                    <SelectItem value="mid">Mid</SelectItem>
+                                    <SelectItem value="low">Low</SelectItem>
+                                </SelectContent>
+                            </Select>
                         </div>
                     </div>
                     <DialogFooter>

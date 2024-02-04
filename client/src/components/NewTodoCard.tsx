@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+
 import { useToast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -26,6 +26,7 @@ export default function NewTodoCard() {
     const [newTodoData, setNewTodoData] = useState({
         title: "",
         description: "",
+        priority: "mid",
     });
     const [resourceData, setResourceData] = useState({
         name: "",
@@ -38,6 +39,7 @@ export default function NewTodoCard() {
             if (
                 newTodoData.title === "" ||
                 newTodoData.description === "" ||
+                newTodoData.priority === "" ||
                 resourceData.link === "" ||
                 resourceData.name === ""
             ) {
@@ -50,6 +52,7 @@ export default function NewTodoCard() {
             const newTodo = {
                 title: newTodoData.title,
                 description: newTodoData.description,
+                priority: newTodoData.priority,
                 resource: resourceData,
             };
             const { data } = await createMutation(newTodo);
@@ -135,7 +138,6 @@ export default function NewTodoCard() {
                             >
                                 Resource Link
                             </Label>
-
                             <Input
                                 id="resource-link"
                                 className="col-span-3"
@@ -147,6 +149,29 @@ export default function NewTodoCard() {
                                     }));
                                 }}
                             />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="priority" className="text-right">
+                                Priority
+                            </Label>
+                            <Select
+                                onValueChange={(value) => {
+                                    setNewTodoData((prevData) => ({
+                                        ...prevData,
+                                        priority: value,
+                                    }));
+                                }}
+                                defaultValue={newTodoData.priority}
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Mid" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="high">High</SelectItem>
+                                    <SelectItem value="mid">Mid</SelectItem>
+                                    <SelectItem value="low">Low</SelectItem>
+                                </SelectContent>
+                            </Select>
                         </div>
                     </div>
                     <DialogFooter>
