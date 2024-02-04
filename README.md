@@ -8,6 +8,8 @@
 -   [x] View all todo list
 -   [x] Dark and light mode
 -   [x] Create todo (limit 10 todos for free version)
+-   [ ] Priority on todos (High , Mid , Low )
+
 -   [x] Upgrade for more than 10 todos
 -   [ ] Revalidate Premium Status after certain amount of time(6months or 1year)
 -   [ ] Cancel Premium Membership at any time
@@ -30,3 +32,4 @@
 ### X Features
 
 -   [ ] Submit a image to declare that todo has been completed
+-   [ ] Timer that decreases to complete a Todo (Day wise)
