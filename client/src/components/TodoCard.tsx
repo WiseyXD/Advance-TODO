@@ -33,6 +33,7 @@ export type TTodoCardProps = {
     resources: [name: string, link: string];
     _id: string;
     completed: boolean;
+    priority: string;
 };
 
 export default function TodoCard({
@@ -42,6 +43,7 @@ export default function TodoCard({
     resources,
     _id,
     completed,
+    priority,
 }: TTodoCardProps) {
     const userId = useSelector((state) => state.root.currentUser._id);
     const [isCompleted, setIsCompleted] = useState(completed);
@@ -108,6 +110,7 @@ export default function TodoCard({
                     <UpdateTodoSheet
                         title={title}
                         description={description}
+                        priority={priority}
                         _id={_id}
                     />
                     <Button onClick={handleDelete} variant={"outline"}>

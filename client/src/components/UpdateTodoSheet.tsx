@@ -8,9 +8,14 @@ import {
     SheetTrigger,
     SheetFooter,
     SheetClose,
-    SheetOverlay,
-    SheetPortal,
 } from "@/components/ui/sheet";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Button } from "./ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,18 +28,21 @@ import { useSelector } from "react-redux";
 export type TUpdateTodoSheetProps = {
     title: string;
     description: string;
+    priority: string;
     _id: string;
 };
 
 export default function UpdateTodoSheet({
     title: existingTitle,
     description: existingDescription,
+    priority: existingPriority,
     _id,
 }: TUpdateTodoSheetProps) {
     const userId = useSelector((state) => state.root.currentUser._id);
     const [updateData, setUpdateData] = useState({
         title: existingTitle,
         description: existingDescription,
+        priority: existingPriority,
     });
     const { toast } = useToast();
     const [updateMutation] = useUpdateTodoMutation();
@@ -106,6 +114,29 @@ export default function UpdateTodoSheet({
                                 }))
                             }
                         />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="priority" className="text-right">
+                            Priority
+                        </Label>
+                        <Select
+                            onValueChange={(value) => {
+                                setUpdateData((prevData) => ({
+                                    ...prevData,
+                                    priority: value,
+                                }));
+                            }}
+                            defaultValue={updateData.priority}
+                        >
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Mid" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="high">High</SelectItem>
+                                <SelectItem value="mid">Mid</SelectItem>
+                                <SelectItem value="low">Low</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
                 </div>
                 <SheetFooter>
