@@ -7,7 +7,6 @@ import Shimmer from "@/components/Shimmer";
 export default function AdminHome() {
     const { data, isFetching } = useGetAllTodosQuery();
     if (isFetching) return <Shimmer />;
-    console.log(data);
     if (!data) return <Shimmer />;
     const { todos } = data;
 

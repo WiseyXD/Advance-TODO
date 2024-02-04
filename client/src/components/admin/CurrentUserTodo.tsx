@@ -17,9 +17,9 @@ export default function Home() {
     );
     const { data, isFetching } = useGetCurrentUserTodosQuery(userId);
     if (isFetching) return <Shimmer />;
-    console.log(data);
     if (!data) return <Shimmer />;
     const { todos } = data;
+    console.log(todos);
     return (
         <div className="flex flex-col gap-3">
             <h1 className="text-3xl">Todos</h1>
