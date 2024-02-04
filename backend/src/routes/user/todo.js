@@ -36,7 +36,8 @@ router.post("/create", async (req, res) => {
             description,
             completed,
             adminGiven,
-            resource
+            resource,
+            priority
         );
         if (typeof response === "string") {
             return res.status(403).json({
