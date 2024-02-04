@@ -74,6 +74,9 @@ router.put("/update/:id", async (req, res) => {
         if (req.body.description) {
             updateObject.description = req.body.description;
         }
+        if (req.body.priority) {
+            updateObject.priority = req.body.priority;
+        }
         const updatedTodo = await updateTodoBody(id, updateObject);
         // Save the updated todo to the database
 
