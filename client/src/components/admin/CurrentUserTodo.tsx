@@ -9,6 +9,7 @@ import {
     useGetCurrentUserTodosQuery,
 } from "@/app/api/adminActionApi";
 import AdminNewTodoCard from "./AdminNewTodoCard";
+import { useState } from "react";
 
 export default function Home() {
     const userId = useSelector(
@@ -19,7 +20,6 @@ export default function Home() {
     console.log(data);
     if (!data) return <Shimmer />;
     const { todos } = data;
-
     return (
         <div className="flex flex-col gap-3">
             <h1 className="text-3xl">Todos</h1>
