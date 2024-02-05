@@ -25,7 +25,7 @@ function App() {
                 <Toaster />
                 <Navbar isAuthorized={isAuthorized} />
                 <Separator />
-                <div className="max-w-[90%] w-full mx-auto mt-4">
+                <div className="max-w-[90%] w-full mx-auto mt-4 max-h-screen">
                     <Routes>
                         <Route
                             path="/signup"
