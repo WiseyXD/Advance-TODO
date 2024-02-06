@@ -14,7 +14,7 @@ export default function AdminDashboard() {
         });
     }, []);
     return (
-        <>
+        <div className="">
             <h1 className="text-3xl font-semibold">Dashboard</h1>
             <Tabs defaultValue="todos">
                 <TabsList>
@@ -28,6 +28,6 @@ export default function AdminDashboard() {
                     <AllUsers />
                 </TabsContent>
             </Tabs>
-        </>
+        </div>
     );
 }
