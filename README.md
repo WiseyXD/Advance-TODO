@@ -10,6 +10,7 @@
 -   [x] Create todo (limit 10 todos for free version)
 -   [x] Priority on todos (High , Mid , Low )
 -   [ ] Filter on Priority of todos (High , Mid , Low )
+-   [ ] Timestamp on todos , and use moment library for formatiing dates
 -   [x] Filter on if Completed or not
 -   [ ] New TodoPage (to overiew an todo , such as desc , priority admin given date of creation and date of completeiton)
 -   [x] Upgrade for more than 10 todos
