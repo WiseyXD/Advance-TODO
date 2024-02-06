@@ -19,6 +19,7 @@ type Todo = {
     resources: [name: string, link: string];
     completed: boolean;
     priority: "high" | "mid" | "low";
+    createdAt?: Date | null;
 };
 
 export default function Home() {
@@ -59,6 +60,9 @@ export default function Home() {
                                 resources={todo.resources}
                                 completed={todo.completed}
                                 priority={todo.priority}
+                                createdAt={
+                                    todo.createdAt ? todo.createdAt : null
+                                }
                             />
                         );
                     })}

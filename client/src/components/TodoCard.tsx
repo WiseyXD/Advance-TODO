@@ -23,8 +23,10 @@ import {
 } from "@/app/api/todoApi";
 import UpdateTodoSheet from "./UpdateTodoSheet";
 import Resources from "./Resources";
+import moment from "moment";
 import { useGetCurrentUserTodosQuery } from "@/app/api/adminActionApi";
 import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 
 export type TTodoCardProps = {
     adminGiven: boolean;
@@ -34,6 +36,7 @@ export type TTodoCardProps = {
     _id: string;
     completed: boolean;
     priority: string;
+    createdAt?: Date | null;
 };
 
 export default function TodoCard({
@@ -44,8 +47,11 @@ export default function TodoCard({
     _id,
     completed,
     priority,
+    createdAt,
 }: TTodoCardProps) {
-    const userId = useSelector((state) => state.root.currentUser._id);
+    const userId = useSelector(
+        (state: RootState) => state.root.currentUser._id
+    );
     const [isCompleted, setIsCompleted] = useState(completed);
     const { toast } = useToast();
     const [completedMutation] = useCompletedTodoMutation();
@@ -107,16 +113,19 @@ export default function TodoCard({
                 <CardContent>
                     <Resources title={title} _id={_id} resources={resources} />
                 </CardContent>
-                <CardFooter className="flex justify-end gap-3">
-                    <UpdateTodoSheet
-                        title={title}
-                        description={description}
-                        priority={priority}
-                        _id={_id}
-                    />
-                    <Button onClick={handleDelete} variant={"outline"}>
-                        <TrashIcon width="30" height="20" />
-                    </Button>
+                <CardFooter className="flex justify-between">
+                    {moment(createdAt).calendar()}
+                    <div className="flex gap-3">
+                        <UpdateTodoSheet
+                            title={title}
+                            description={description}
+                            priority={priority}
+                            _id={_id}
+                        />
+                        <Button onClick={handleDelete} variant={"outline"}>
+                            <TrashIcon width="30" height="20" />
+                        </Button>
+                    </div>
                 </CardFooter>
             </Card>
         </TooltipProvider>

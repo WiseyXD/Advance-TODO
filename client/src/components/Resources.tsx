@@ -20,20 +20,18 @@ import ListItem from "./ListItem";
 import { useUpdateResourceTodoMutation } from "@/app/api/todoApi";
 import { useGetCurrentUserTodosQuery } from "@/app/api/adminActionApi";
 import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 
 type TResourceProps = {
     title: string;
     _id: string;
-    resources: [
-        {
-            name: string;
-            link: string;
-        }
-    ];
+    resources: [name: string, link: string];
 };
 
 export default function Resources({ title, _id, resources }: TResourceProps) {
-    const userId = useSelector((state) => state.root.currentUser._id);
+    const userId = useSelector(
+        (state: RootState) => state.root.currentUser._id
+    );
     const [resource, setResource] = useState({
         name: "",
         link: "",
