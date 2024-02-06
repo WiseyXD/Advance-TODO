@@ -8,8 +8,10 @@
 -   [x] View all todo list
 -   [x] Dark and light mode
 -   [x] Create todo (limit 10 todos for free version)
--   [ ] Priority on todos (High , Mid , Low )
--   [ ] New TodoPage (to overiew an todo , such as desc , priority, admin given date of creation and date of completeiton)
+-   [x] Priority on todos (High , Mid , Low )
+-   [ ] Filter on Priority of todos (High , Mid , Low )
+-   [x] Filter on if Completed or not
+-   [ ] New TodoPage (to overiew an todo , such as desc , priority admin given date of creation and date of completeiton)
 -   [x] Upgrade for more than 10 todos
 -   [ ] Revalidate Premium Status after certain amount of time(6months or 1year)
 -   [ ] Cancel Premium Membership at any time
