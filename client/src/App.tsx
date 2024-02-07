@@ -12,6 +12,7 @@ import BuyPremium from "./pages/user/BuyPremium";
 import AdminSignup from "./pages/admin/AdminSignup";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import TodoOverview from "./pages/user/TodoOverview";
 function App() {
     // Winning Day
     const isAuthorized = useSelector(
@@ -62,6 +63,20 @@ function App() {
                             }
                         />
                         <Route
+                            path="/:todoId"
+                            element={
+                                isAuthorized ? (
+                                    isAdmin ? (
+                                        <Navigate to={"/admin"} />
+                                    ) : (
+                                        <TodoOverview />
+                                    )
+                                ) : (
+                                    <Navigate to={"/login"} />
+                                )
+                            }
+                        />
+                        <Route
                             path="/premium"
                             element={
                                 isAuthorized ? (
@@ -102,6 +117,20 @@ function App() {
                                 isAuthorized ? (
                                     isAdmin ? (
                                         <AdminDashboard />
+                                    ) : (
+                                        <Navigate to={"/"} />
+                                    )
+                                ) : (
+                                    <Navigate to={"/admin/login"} />
+                                )
+                            }
+                        />
+                        <Route
+                            path="/admin/:todoId"
+                            element={
+                                isAuthorized ? (
+                                    isAdmin ? (
+                                        <TodoOverview />
                                     ) : (
                                         <Navigate to={"/"} />
                                     )
