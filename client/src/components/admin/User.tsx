@@ -1,16 +1,6 @@
 import { CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-type TUser = {
-    admin: boolean;
-    email: string;
-    password: string;
-    premium: boolean;
-    __v: number;
-    _id: string;
-    id?: string;
-};
-
 export default function User({
     // @ts-ignore
     user,
