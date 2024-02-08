@@ -5,7 +5,7 @@ const Todo = require("../../models/todo");
 const authenticateToken = require("../../middleware/user");
 const { createNewTodo, deleteTodoById } = require("../../utils/CRUDhelper");
 
-// router.use(authenticateToken);
+router.use(authenticateToken);
 
 router.get("/allUsers", async (req, res) => {
     try {
