@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
     Sheet,
     SheetContent,
@@ -24,6 +24,7 @@ import { Pencil2Icon } from "@radix-ui/react-icons";
 import { useUpdateTodoMutation } from "@/app/api/todoApi";
 import { useGetCurrentUserTodosQuery } from "@/app/api/adminActionApi";
 import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 
 export type TUpdateTodoSheetProps = {
     title: string;
@@ -38,7 +39,9 @@ export default function UpdateTodoSheet({
     priority: existingPriority,
     _id,
 }: TUpdateTodoSheetProps) {
-    const userId = useSelector((state) => state.root.currentUser._id);
+    const userId = useSelector(
+        (state: RootState) => state.root.currentUser._id
+    );
     const [updateData, setUpdateData] = useState({
         title: existingTitle,
         description: existingDescription,
@@ -54,6 +57,7 @@ export default function UpdateTodoSheet({
                 return;
             }
             console.log(updateData);
+            // @ts-ignore
             const { data } = await updateMutation({ _id, updateData });
             toast({
                 title: "Todo Updated",
@@ -62,6 +66,7 @@ export default function UpdateTodoSheet({
             refetch();
         } catch (error) {
             toast({
+                // @ts-ignore
                 title: "Updation Failed due " + error.message,
             });
         }

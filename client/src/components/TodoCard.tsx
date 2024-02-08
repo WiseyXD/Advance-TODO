@@ -58,6 +58,7 @@ export default function TodoCard({
     const [deleteMutation] = useDeleteTodoMutation();
     const { refetch } = useGetCurrentUserTodosQuery(userId);
     async function handleDelete() {
+        // @ts-ignore
         const { data } = await deleteMutation(_id);
         refetch();
         toast({
@@ -67,6 +68,7 @@ export default function TodoCard({
 
     async function handleCompleted() {
         try {
+            // @ts-ignore
             const { data } = await completedMutation(_id);
             setIsCompleted(data.completed);
             !isCompleted

@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Card,
     CardContent,
@@ -7,13 +6,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-
 import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "./ui/button";
-import { Checkbox } from "@radix-ui/react-checkbox";
-import { Pencil2Icon } from "@radix-ui/react-icons";
-import { TrashIcon } from "lucide-react";
-
 export default function SkeletonCard() {
     return (
         <Card className="hover:bg-gray-300 transition duration-100 ease-in-out ">

@@ -10,7 +10,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -48,6 +47,7 @@ export default function AdminSignup() {
             return;
         }
         const { email, password, username } = values;
+        // @ts-ignore
         const { data } = await signupMutation({ email, password, username });
         if (!data) {
             toast({

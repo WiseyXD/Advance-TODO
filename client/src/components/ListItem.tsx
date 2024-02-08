@@ -1,5 +1,3 @@
-import React from "react";
-
 type TResources = {
     name: string;
     link: string;

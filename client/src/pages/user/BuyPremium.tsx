@@ -1,4 +1,3 @@
-import React from "react";
 import { useBuyPremiumMutation } from "@/app/api/premiumApi";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -8,7 +7,8 @@ const BuyPremium = () => {
     const [buyPremium] = useBuyPremiumMutation();
     async function handleSubmit() {
         try {
-            const { data } = await buyPremium();
+            // @ts-ignore
+            const { data } = await buyPremium(null);
             toast({
                 title: "Upgraded to Premium Tier",
             });

@@ -1,26 +1,29 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import User from "./User";
 import { ScrollArea } from "../ui/scroll-area";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/app/Slices/currentUserSlice";
+import { RootState } from "@/app/store";
 
-type TUserListProps = [
-    {
-        admin: boolean;
-        email: string;
-        id?: string;
-        password: string;
-        premium: boolean;
-        __v: number;
-        _id: string;
-    }
-];
+type TUser = {
+    admin: boolean;
+    email: string;
+    password: string;
+    premium: boolean;
+    __v: number;
+    _id: string;
+    id?: string;
+};
 
-export default function UsersList({ users }: TUserListProps) {
-    const userId = useSelector((state) => state.root.currentUser._id);
+type TUserListProps = TUser[];
+
+export default function UsersList({ users }: { users: TUserListProps }) {
+    const userId = useSelector(
+        (state: RootState) => state.root.currentUser._id
+    );
     const [selectedUserId, setSelectedUserId] = useState<string | null>(userId);
     const dispatch = useDispatch();
-    function selectUser(user) {
+    function selectUser(user: TUser) {
         dispatch(setUser(user));
         setSelectedUserId(user._id);
     }
@@ -31,11 +34,17 @@ export default function UsersList({ users }: TUserListProps) {
             <ScrollArea>
                 {users.map((user) => (
                     <div
-                        onClick={() => selectUser(user)}
+                        onClick={() => {
+                            selectUser(user);
+                        }}
+                        // @ts-ignore
                         className={user._id === selectedUserId && "underline"}
                         role="button"
                     >
-                        <User user={user} />
+                        <User
+                            // @ts-ignore
+                            user={user}
+                        />
                     </div>
                 ))}
             </ScrollArea>

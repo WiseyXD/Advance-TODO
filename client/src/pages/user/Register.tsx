@@ -2,17 +2,15 @@ import { useState } from "react";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useDispatch } from "react-redux";
 import { useSignupMutation } from "@/app/api/authApi";
 import { Link, useNavigate } from "react-router-dom";
 import * as z from "zod";
@@ -38,7 +36,6 @@ export default function Register() {
     });
 
     const [signupMutation] = useSignupMutation();
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
@@ -51,6 +48,7 @@ export default function Register() {
             return;
         }
         const { email, password, username } = values;
+        // @ts-ignore
         const { data } = await signupMutation({ email, password, username });
         if (!data) {
             toast({

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import {
     Accordion,
     AccordionContent,
@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { TrashIcon, Pencil2Icon } from "@radix-ui/react-icons";
 
 export default function TodoOverview() {
-    const { todoId } = useParams();
+    // const { todoId } = useParams();
     // Fetch api for tasks (preload using RTK query)
 
     useEffect(() => {

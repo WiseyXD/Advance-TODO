@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
     Dialog,
     DialogContent,
@@ -15,7 +15,7 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast, useToast } from "./ui/use-toast";
+import { toast } from "./ui/use-toast";
 import ListItem from "./ListItem";
 import { useUpdateResourceTodoMutation } from "@/app/api/todoApi";
 import { useGetCurrentUserTodosQuery } from "@/app/api/adminActionApi";
@@ -48,6 +48,7 @@ export default function Resources({ title, _id, resources }: TResourceProps) {
                 });
                 return;
             }
+            // @ts-ignore
             const { data } = await resourceMutation({ _id, resource });
             console.log(data);
             toast({
@@ -70,15 +71,19 @@ export default function Resources({ title, _id, resources }: TResourceProps) {
                     <DialogDescription>
                         {resources && (
                             <ul className="flex flex-col pt-1 pb-2">
-                                {resources.map(({ name, link }, i) => {
-                                    return (
-                                        <ListItem
-                                            key={i}
-                                            name={name}
-                                            link={link}
-                                        />
-                                    );
-                                })}
+                                {
+                                    // @ts-ignore
+                                    resources.map(({ name, link }, i) => {
+                                        return (
+                                            <ListItem
+                                                key={i}
+                                                name={name}
+                                                // @ts-ignore
+                                                link={link}
+                                            />
+                                        );
+                                    })
+                                }
                             </ul>
                         )}
                         <Popover>

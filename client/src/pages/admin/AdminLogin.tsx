@@ -41,6 +41,7 @@ export default function AdminLogin() {
     async function onSubmit(values: z.infer<typeof loginSchema>) {
         setIsLoading(true);
         const { email, password } = values;
+        // @ts-ignore
         const { data } = await loginMutation({
             email,
             password,

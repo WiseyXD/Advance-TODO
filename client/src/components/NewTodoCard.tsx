@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import {
     Dialog,
@@ -55,6 +55,7 @@ export default function NewTodoCard() {
                 priority: newTodoData.priority,
                 resource: resourceData,
             };
+            // @ts-ignore
             const { data } = await createMutation(newTodo);
             console.log(data);
             if (typeof data.response === "string") {

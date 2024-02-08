@@ -2,12 +2,8 @@ import TodoCard from "../../components/TodoCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
-import NewTodoCard from "@/components/NewTodoCard";
 import Shimmer from "@/components/Shimmer";
-import {
-    useCreateAdminTodoMutation,
-    useGetCurrentUserTodosQuery,
-} from "@/app/api/adminActionApi";
+import { useGetCurrentUserTodosQuery } from "@/app/api/adminActionApi";
 import AdminNewTodoCard from "./AdminNewTodoCard";
 import { useEffect, useState } from "react";
 import Filter from "../Filter";

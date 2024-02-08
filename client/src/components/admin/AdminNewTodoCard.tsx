@@ -1,16 +1,8 @@
-import React, { useState } from "react";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+import { useState } from "react";
+import { Card } from "@/components/ui/card";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -29,9 +21,12 @@ import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 
 export default function AdminNewTodoCard() {
-    const userId = useSelector((state) => state.root.currentUser._id);
+    const userId = useSelector(
+        (state: RootState) => state.root.currentUser._id
+    );
 
     const [newTodoData, setNewTodoData] = useState({
         title: "",
@@ -66,6 +61,7 @@ export default function AdminNewTodoCard() {
                 resource: resourceData,
             };
             // Change Id
+            // @ts-ignore
             const { data } = await createMutation({
                 id: userId,
                 credentials: newTodo,
