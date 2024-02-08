@@ -9,6 +9,7 @@ import UsersList from "@/components/admin/UsersList";
 import CurrentUserTodo from "@/components/admin/CurrentUserTodo";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
+import Shimmer from "@/components/Shimmer";
 
 export default function AllUsers() {
     const userId = useSelector(
@@ -27,7 +28,7 @@ export default function AllUsers() {
                 </ResizablePanel>
                 <ResizableHandle withHandle />
                 <ResizablePanel>
-                    {userId ? <CurrentUserTodo /> : "Select User"}
+                    {userId ? <CurrentUserTodo /> : <Shimmer />}
                 </ResizablePanel>
             </ResizablePanelGroup>
         </>
