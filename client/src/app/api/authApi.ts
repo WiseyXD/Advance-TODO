@@ -1,6 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-interface Credentials {
+interface LoginCredentials {
+    email: string;
+    password: string;
+}
+
+interface RegisterCredentials {
     email: string;
     password: string;
     username: string;
@@ -13,7 +18,7 @@ export const authApi = createApi({
     }),
     endpoints: (builder) => ({
         signup: builder.mutation({
-            query: (credentials: Credentials) => ({
+            query: (credentials: RegisterCredentials) => ({
                 url: "signup",
                 method: "POST",
                 headers: {
@@ -23,7 +28,7 @@ export const authApi = createApi({
             }),
         }),
         login: builder.mutation({
-            query: (credentials: Credentials) => ({
+            query: (credentials: LoginCredentials) => ({
                 url: "login",
                 method: "POST",
                 headers: {
