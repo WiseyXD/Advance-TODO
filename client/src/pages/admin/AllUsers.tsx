@@ -7,8 +7,13 @@ import {
 } from "@/components/ui/resizable";
 import UsersList from "@/components/admin/UsersList";
 import CurrentUserTodo from "@/components/admin/CurrentUserTodo";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 
 export default function AllUsers() {
+    const userId = useSelector(
+        (state: RootState) => state.root.currentUser._id
+    );
     const { data, isFetching } = useGetAllUsersQuery(null);
     if (isFetching) return <p>Loading ...</p>;
     const { users } = data;
@@ -22,7 +27,7 @@ export default function AllUsers() {
                 </ResizablePanel>
                 <ResizableHandle withHandle />
                 <ResizablePanel>
-                    <CurrentUserTodo />
+                    {userId ? <CurrentUserTodo /> : "Select User"}
                 </ResizablePanel>
             </ResizablePanelGroup>
         </>

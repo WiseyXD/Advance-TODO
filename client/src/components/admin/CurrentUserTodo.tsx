@@ -26,6 +26,7 @@ export default function Home() {
         (state: RootState) => state.root.currentUser._id
     );
     const [ztodos, zSetTodos] = useState<Todos>(null);
+
     const { data, isFetching } = useGetCurrentUserTodosQuery(userId);
     useEffect(() => {
         if (!isFetching) {
